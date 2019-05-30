@@ -49,11 +49,33 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="UnitTestCommonHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSZ.Common\ZSZ.Common.csproj">
+      <Project>{81a19852-1a35-4eeb-89ad-cda961ef2f3a}</Project>
+      <Name>ZSZ.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSZ.DTO\ZSZ.DTO.csproj">
+      <Project>{54d2900b-07f3-42db-aa34-40038044c719}</Project>
+      <Name>ZSZ.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSZ.IServices\ZSZ.IServices.csproj">
+      <Project>{23f0c07f-60c7-4885-9ed0-b9eb403bf396}</Project>
+      <Name>ZSZ.IServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSZ.Services\ZSZ.Services.csproj">
+      <Project>{11b1e032-75bd-4e47-8de6-6be1245b81e5}</Project>
+      <Name>ZSZ.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ZSZ.Web.Common\ZSZ.Web.Common.csproj">
+      <Project>{29fed61a-f573-446f-b4f5-9302157c4ae6}</Project>
+      <Name>ZSZ.Web.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -27,7 +27,7 @@ namespace ZSZ.FrontWeb
             //把当前程序集中的 Controller 都注册
             //不要忘了.PropertiesAutowired()
             // 获取所有相关类库的程序集
-            Assembly[] assemblies = new Assembly[] { Assembly.Load("ZSZ.Service") };
+            Assembly[] assemblies = new Assembly[] { Assembly.Load("ZSZ.Services") };
             builder.RegisterAssemblyTypes(assemblies)
                 .Where(type => !type.IsAbstract && type.IsAssignableFrom(typeof(IServiceAutofac)))
                 .AsImplementedInterfaces().PropertiesAutowired();
