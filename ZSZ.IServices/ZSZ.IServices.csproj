@@ -41,7 +41,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAdminLog.cs" />
+    <Compile Include="IAdminUser.cs" />
+    <Compile Include="IAttachment.cs" />
+    <Compile Include="ICity.cs" />
+    <Compile Include="ICommunitity.cs" />
+    <Compile Include="IdName.cs" />
+    <Compile Include="IHouse.cs" />
+    <Compile Include="IHouseAppointment.cs" />
+    <Compile Include="IHousePic.cs" />
+    <Compile Include="IPermission.cs" />
+    <Compile Include="IRegion.cs" />
+    <Compile Include="IRole.cs" />
+    <Compile Include="IServiceAutofac.cs" />
+    <Compile Include="ISetting.cs" />
+    <Compile Include="IUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSZ.DTO\ZSZ.DTO.csproj">
+      <Project>{54d2900b-07f3-42db-aa34-40038044c719}</Project>
+      <Name>ZSZ.DTO</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
