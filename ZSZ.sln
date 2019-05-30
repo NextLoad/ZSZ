@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSZ.DTO", "ZSZ.DTO\ZSZ.DTO.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZSZ.Web.Common", "ZSZ.Web.Common\ZSZ.Web.Common.csproj", "{29FED61A-F573-446F-B4F5-9302157C4AE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{1CA48FF3-4705-4C31-A169-F34BD839070B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{29FED61A-F573-446F-B4F5-9302157C4AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29FED61A-F573-446F-B4F5-9302157C4AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29FED61A-F573-446F-B4F5-9302157C4AE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA48FF3-4705-4C31-A169-F34BD839070B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA48FF3-4705-4C31-A169-F34BD839070B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA48FF3-4705-4C31-A169-F34BD839070B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA48FF3-4705-4C31-A169-F34BD839070B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

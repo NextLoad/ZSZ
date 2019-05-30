@@ -16,6 +16,6 @@ namespace ZSZ.Services.Entities
         public virtual RegionEntity RegionEntity { get; set; }
         public string Location { get; set; }
         public string Traffic { get; set; }
-        public int BuiltYear { get; set; }
+        public int? BuiltYear { get; set; }
     }
 }

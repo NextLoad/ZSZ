@@ -13,6 +13,9 @@ namespace ZSZ.Services.EntityConfigs
         public AdminLogConfig()
         {
             this.ToTable("T_AdminLogs");
+            this.Property(a => a.Msg).IsRequired();
+            this.HasRequired(a => a.AdminUserEntity)
+                .WithMany().HasForeignKey(a => a.UserId).WillCascadeOnDelete(false);
         }
     }
 }

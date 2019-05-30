@@ -20,6 +20,7 @@ namespace ZSZ.Services.Entities
         /// 户型类型ID
         /// </summary>
         public long RoomTypeId { get; set; }
+        public virtual IdNameEntity RoomType { get; set; }
         public string Address { get; set; }
         public int MonthRent { get; set; }
         /// <summary>
@@ -27,19 +28,20 @@ namespace ZSZ.Services.Entities
         /// </summary>
         public long StatusId { get; set; }
 
+        public virtual IdNameEntity Status { get; set; }
         public double Area { get; set; }
         /// <summary>
         /// 装修状态
         /// </summary>
         public long DecorateStatusId { get; set; }
-
+        public virtual IdNameEntity DecorateStatus { get; set; }
         public int TotalFloatCount { get; set; }
         public int FloorIndex { get; set; }
         /// <summary>
         /// 房屋类别
         /// </summary>
         public long TypeId { get; set; }
-
+        public virtual IdNameEntity Type { get; set; }
         public string Direction { get; set; }
         public DateTime LookableDateTime { get; set; }
         public DateTime CheckInDateTime { get; set; }

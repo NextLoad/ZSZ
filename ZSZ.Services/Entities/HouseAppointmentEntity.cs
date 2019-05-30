@@ -11,7 +11,7 @@ namespace ZSZ.Services.Entities
     /// </summary>
     public class HouseAppointmentEntity : BaseEntity
     {
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
         public virtual UserEntity UserEntity { get; set; }
         public string Name { get; set; }
         public string PhoneNum { get; set; }

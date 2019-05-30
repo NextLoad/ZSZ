@@ -37,6 +37,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -48,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonService.cs" />
     <Compile Include="Entities\AdminLogEntity.cs" />
     <Compile Include="Entities\AdminUserEntity.cs" />
     <Compile Include="Entities\AttachmentEntity.cs" />
@@ -64,11 +68,31 @@
     <Compile Include="Entities\SettingEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="EntityConfigs\AdminLogConfig.cs" />
+    <Compile Include="EntityConfigs\AdminUserConfig.cs" />
+    <Compile Include="EntityConfigs\AttachmentConfig.cs" />
+    <Compile Include="EntityConfigs\CityConfig.cs" />
+    <Compile Include="EntityConfigs\CommunitityConfig.cs" />
+    <Compile Include="EntityConfigs\HouseAppointmentConfig.cs" />
+    <Compile Include="EntityConfigs\HouseConfig.cs" />
+    <Compile Include="EntityConfigs\HousePicConfig.cs" />
+    <Compile Include="EntityConfigs\IdNameConfig.cs" />
+    <Compile Include="EntityConfigs\PermissionConfig.cs" />
+    <Compile Include="EntityConfigs\RegionConfig.cs" />
+    <Compile Include="EntityConfigs\RoleConfig.cs" />
+    <Compile Include="EntityConfigs\SettingConfig.cs" />
+    <Compile Include="EntityConfigs\UserConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ZSZDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ZSZ.IServices\ZSZ.IServices.csproj">
+      <Project>{23f0c07f-60c7-4885-9ed0-b9eb403bf396}</Project>
+      <Name>ZSZ.IServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

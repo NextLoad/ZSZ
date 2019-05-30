@@ -11,6 +11,7 @@ namespace ZSZ.FrontWeb
     {
         protected void Application_Start()
         {
+            log4net.Config.XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }

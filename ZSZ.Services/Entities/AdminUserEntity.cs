@@ -19,7 +19,7 @@ namespace ZSZ.Services.Entities
         public long? CityId { get; set; }
         public virtual CityEntity CityEntity { get; set; }
         public int LoginErrorTimes { get; set; }
-        public DateTime LastLoginErrorDateTime { get; set; }
+        public DateTime? LastLoginErrorDateTime { get; set; }
         public virtual ICollection<RoleEntity> RoleEntities { get; set; } = new List<RoleEntity>();
 
     }
