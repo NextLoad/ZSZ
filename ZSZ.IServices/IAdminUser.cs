@@ -64,7 +64,7 @@ namespace ZSZ.IServices
         /// <param name="userName"></param>
         /// <param name="userPwd"></param>
         /// <returns></returns>
-        bool CheckLogin(string userName, string userPwd);
+        bool CheckLogin(string phoneNum, string userPwd);
 
         /// <summary>
         /// 删除用户

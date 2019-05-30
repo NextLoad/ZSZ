@@ -26,19 +26,19 @@ namespace ZSZ.Services
             modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        public DbSet<AdminLogEntity> AdminLogEntities { get; set; }
-        public DbSet<AdminUserEntity> AdminUserEntities { get; set; }
-        public DbSet<AttachmentEntity> AttachmentEntities { get; set; }
-        public DbSet<CityEntity> CityEntities { get; set; }
-        public DbSet<CommunitityEntity> CommunitityEntities { get; set; }
-        public DbSet<HouseAppointmentEntity> HouseAppointmentEntities { get; set; }
-        public DbSet<HouseEntity> HouseEntities { get; set; }
-        public DbSet<HousePicEntity> HousePicEntities { get; set; }
-        public DbSet<IdNameEntity> IdNameEntities { get; set; }
-        public DbSet<PermissionEntity> PermissionEntities { get; set; }
-        public DbSet<RegionEntity> RegionEntities { get; set; }
-        public DbSet<RoleEntity> RoleEntities { get; set; }
-        public DbSet<SettingEntity> SettingEntities { get; set; }
-        public DbSet<UserEntity> UserEntities { get; set; }
+        public DbSet<AdminLogEntity> AdminLogs { get; set; }
+        public DbSet<AdminUserEntity> AdminUsers { get; set; }
+        public DbSet<AttachmentEntity> Attachments { get; set; }
+        public DbSet<CityEntity> Cities { get; set; }
+        public DbSet<CommunitityEntity> Communitities { get; set; }
+        public DbSet<HouseAppointmentEntity> HouseAppointments { get; set; }
+        public DbSet<HouseEntity> Houses { get; set; }
+        public DbSet<HousePicEntity> HousePics { get; set; }
+        public DbSet<IdNameEntity> IdNames { get; set; }
+        public DbSet<PermissionEntity> Permissions { get; set; }
+        public DbSet<RegionEntity> Regions { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
+        public DbSet<SettingEntity> Settings { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
     }
 }

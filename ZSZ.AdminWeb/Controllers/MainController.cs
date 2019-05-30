@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ZSZ.FrontWeb.Controllers
+namespace ZSZ.AdminWeb.Controllers
 {
-    public class HomeController : Controller
+    public class MainController : Controller
     {
-        // GET: Home
+        // GET: Main
         public ActionResult Index()
         {
             return View();
