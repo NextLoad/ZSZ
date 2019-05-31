@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="AdminLogService.cs" />
     <Compile Include="AdminUserService.cs" />
+    <Compile Include="AttachmentService.cs" />
+    <Compile Include="CityService.cs" />
     <Compile Include="CommonService.cs" />
     <Compile Include="Entities\AdminLogEntity.cs" />
     <Compile Include="Entities\AdminUserEntity.cs" />
