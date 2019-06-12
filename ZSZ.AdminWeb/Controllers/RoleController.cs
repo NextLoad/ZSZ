@@ -34,7 +34,24 @@ namespace ZSZ.AdminWeb.Controllers
         {
             long roleId = roleService.AddNewRole(roleAddModel.Name);
             permService.AddPermIds(roleId, roleAddModel.PermIds);
-            return Json(new AjaxResult() {Status = "ok"});
+            return Json(new AjaxResult() { Status = "ok" });
         }
+
+
+        public ActionResult DeleteRole(long id)
+        {
+            roleService.MarkDeleted(id);
+            return Json(new AjaxResult() { Status = "ok" });
+        }
+
+        public ActionResult DeleteBatchRole(long[] ids)
+        {
+            foreach (long id in ids)
+            {
+                roleService.MarkDeleted(id);
+            }
+            return Json(new AjaxResult() { Status = "ok" });
+        }
+
     }
 }

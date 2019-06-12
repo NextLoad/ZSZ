@@ -27,7 +27,7 @@
                     dataType: "json",
                     success: function(msg) {
                         if (msg.status == "ok") {
-                            alert("ok");
+                            window.location.reload();
                         } else {
                             alert("error:" + msg.msg);
                         }
