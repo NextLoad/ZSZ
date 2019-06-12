@@ -52,5 +52,17 @@ namespace TestServices
             }
 
         }
+
+        [TestMethod]
+        public void TestHasPermission()
+        {
+            AdminUserService auService = new AdminUserService();
+            bool has = auService.HasPermission(11, "9ffbb0a8-566f-4449-a7ed-0a85d64d1c2c");
+            Assert.IsTrue(has);
+            bool has2 = auService.HasPermission(11, "3e1e8ff9-3c94-4b06-ad73-bdb3cbd447b2");
+            Assert.IsTrue(has2);
+            bool has3 = auService.HasPermission(11, "460abdd7-46be-463d-891a-998b47d95505");
+            Assert.IsFalse(has3);
+        }
     }
 }

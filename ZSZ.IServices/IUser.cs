@@ -17,7 +17,7 @@ namespace ZSZ.IServices
         /// <param name="password"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        long AddNewUser(string name, string phoneNum, string password, long? cityId);
+        long AddNewUser( string phoneNum, string password, long? cityId);
 
         /// <summary>
         /// 更新用户信息
@@ -28,7 +28,7 @@ namespace ZSZ.IServices
         /// <param name="password"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        long UpdateUser(long id, string name, string phoneNum, string password, long? cityId);
+        long UpdateUser(long id,  string phoneNum, string password, long? cityId);
 
         /// <summary>
         /// 设置用户城市id

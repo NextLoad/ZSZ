@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,6 +19,7 @@ namespace ZSZ.Services
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 ctx.Roles.Add(role);
+                ctx.SaveChanges();
                 return role.Id;
             }
         }
@@ -50,7 +52,11 @@ namespace ZSZ.Services
 
         private RoleDTO ToDTO(RoleEntity r)
         {
-            throw new NotImplementedException();
+            RoleDTO roleDto = new RoleDTO();
+            roleDto.Name = r.Name;
+            roleDto.CreateDateTime = r.CreateDateTime;
+            roleDto.Id = r.Id;
+            return roleDto;
         }
 
         public RoleDTO[] GetByAdminUserId(long adminUserId)
@@ -70,27 +76,74 @@ namespace ZSZ.Services
 
         public RoleDTO[] GetAll()
         {
-            throw new NotImplementedException();
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<RoleEntity> roleService = new CommonService<RoleEntity>(ctx);
+                return roleService.GetAll().ToList().Select(r => ToDTO(r)).ToArray();
+            }
         }
 
         public RoleDTO GetByName(string name)
         {
-            throw new NotImplementedException();
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<RoleEntity> roleService = new CommonService<RoleEntity>(ctx);
+                RoleEntity role = roleService.GetAll().SingleOrDefault(r => r.Name == name);
+                return role == null ? null : ToDTO(role);
+            }
         }
 
         public RoleDTO GetById(long id)
         {
-            throw new NotImplementedException();
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<RoleEntity> roleService = new CommonService<RoleEntity>(ctx);
+                RoleEntity role = roleService.GetById(id);
+                return role == null ? null : ToDTO(role);
+            }
         }
 
         public void AddRoleIds(long adminUserId, long[] roleIds)
         {
-            throw new NotImplementedException();
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<AdminUserEntity> adminService = new CommonService<AdminUserEntity>(ctx);
+                AdminUserEntity adminUser = adminService.GetById(adminUserId);
+                if (adminUser == null)
+                {
+                    throw new ArgumentException("管理员用户不存在！" + adminUserId);
+                }
+                CommonService<RoleEntity> roleService = new CommonService<RoleEntity>(ctx);
+                var roles = roleService.GetAll().Where(r => roleIds.Contains(r.Id)).Include(r=>r.AdminUserEntities).Include(r=>r.PermissionEntities);
+                foreach (RoleEntity role in roles.ToList())
+                {
+                    adminUser.RoleEntities.Add(role);
+                }
+
+                ctx.SaveChanges();
+            }
         }
 
         public void UpdateRoleIds(long adminUserId, long[] roleIds)
         {
-            throw new NotImplementedException();
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<AdminUserEntity> adminService = new CommonService<AdminUserEntity>(ctx);
+                AdminUserEntity adminUser = adminService.GetById(adminUserId);
+                if (adminUser == null)
+                {
+                    throw new ArgumentException("管理员用户不存在！" + adminUserId);
+                }
+                adminUser.RoleEntities.Clear();
+                CommonService<RoleEntity> roleService = new CommonService<RoleEntity>(ctx);
+                var roles = roleService.GetAll().Where(r => roleIds.Contains(r.Id));
+                foreach (RoleEntity role in roles)
+                {
+                    adminUser.RoleEntities.Add(role);
+                }
+
+                ctx.SaveChanges();
+            }
         }
     }
 }

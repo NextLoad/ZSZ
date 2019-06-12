@@ -60,6 +60,8 @@
     <Compile Include="UnitTestAdminUserService.cs" />
     <Compile Include="UnitTestCommonHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UnitTestPermissionService.cs" />
+    <Compile Include="UnitTestRoleService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
