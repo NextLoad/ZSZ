@@ -112,6 +112,7 @@
     <Content Include="css\H-ui.min.css" />
     <Content Include="css\H-ui.reset.css" />
     <Content Include="css\style.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\acrossTab-2.png" />
     <Content Include="images\acrossTab-2bak.png" />
@@ -141,6 +142,9 @@
     <Content Include="js\de_DE.txt" />
     <Content Include="js\H-ui.admin.js" />
     <Content Include="js\H-ui.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="js\_references.js" />
     <Content Include="lib\bootstrap-modal\2.2.4\bootstrap-modal.js" />
     <Content Include="lib\bootstrap-modal\2.2.4\bootstrap-modalmanager.js" />
@@ -1188,6 +1192,10 @@
     <Content Include="lib\zTree\v3\js\jquery.ztree.exhide-3.5.js" />
     <Content Include="lib\zTree\v3\js\jquery.ztree.exhide-3.5.min.js" />
     <Content Include="lib\zTree\v3\log v3.x.txt" />
+    <None Include="js\jquery-1.10.2.intellisense.js" />
+    <Content Include="js\jquery-1.10.2.js" />
+    <Content Include="js\jquery-1.10.2.min.js" />
+    <Content Include="js\modernizr-2.6.2.js" />
     <Content Include="skin\blue\acrossTab-bg.png" />
     <Content Include="skin\blue\acrossTab.png" />
     <Content Include="skin\blue\icon_arrow.png" />
@@ -1216,7 +1224,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1230,6 +1240,7 @@
     <Compile Include="lib\ueditor\1.4.3\net\App_Code\PathFormater.cs" />
     <Compile Include="lib\ueditor\1.4.3\net\App_Code\UploadHandler.cs" />
     <Compile Include="ModelBinders\TrimToDBCModelBinder.cs" />
+    <Compile Include="Models\RoleAddModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1285,6 +1296,12 @@
     <Content Include="skin\red\Thumbs.db" />
     <Content Include="skin\yellow\Thumbs.db" />
     <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="js\jquery-1.10.2.min.map" />
+    <Content Include="Views\Role\List.cshtml" />
+    <Content Include="Views\Role\AddRole.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1294,7 +1311,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSZ.Common\ZSZ.Common.csproj">

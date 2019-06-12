@@ -29,7 +29,7 @@ namespace ZSZ.FrontWeb
             // 获取所有相关类库的程序集
             Assembly[] assemblies = new Assembly[] { Assembly.Load("ZSZ.Services") };
             builder.RegisterAssemblyTypes(assemblies)
-                .Where(type => !type.IsAbstract && type.IsAssignableFrom(typeof(IServiceAutofac)))
+                .Where(type => !type.IsAbstract && typeof(IServiceAutofac).IsAssignableFrom(type))
                 .AsImplementedInterfaces().PropertiesAutowired();
             var container = builder.Build();
             //注册系统级别的 DependencyResolver，这样当 MVC 框架创建 Controller 等对象的时候都是管 Autofac 要对象。
