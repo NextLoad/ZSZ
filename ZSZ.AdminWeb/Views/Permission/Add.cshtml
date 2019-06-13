@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="~/Permission/Add" method="post" id="formAdd">
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>权限项名称：</label>
+        <div class="formControls col-5">
+            <input type="text" name="name" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="权限项名称不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>权限项描述：</label>
+        <div class="formControls col-5">
+            <input type="text" name="description" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="权限项描述不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <input type="button" value="添加" id="btnAddPerm" />
+    </div>
+</form>
+@section FooterScript
+{
+    <script type="text/javascript">
+        $(function () {
+            $("#formAdd").Validform({ tiptype: 2 });
+            $("#btnAddPerm").click(function () {
+                var formData = $("#formAdd").serializeArray();
+                $.ajax({
+                    url: "/Permission/Add",
+                    type: "post",
+                    data: formData,
+                    dataType: "json",
+                    success:function(msg) {
+                        if (msg.status == "ok") {
+                            layer.msg('添加成功!', { icon: 1, time: 1000 });
+                            window.parent.location.reload();
+                        } else {
+                            alert("error:" + msg.msg);
+                        }
+                    },
+                    error:function() {
+                        alert("请求失败！");
+                    }
+                });
+            });
+        });
+    </script>
+}
+

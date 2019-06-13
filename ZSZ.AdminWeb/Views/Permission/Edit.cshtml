@@ -1,0 +1,55 @@
+﻿@model ZSZ.DTO.PermissionDTO
+@{
+    ViewBag.Title = "编辑权限项";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="~/Permission/Edit" method="post" id="formEdit">
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>权限项名称：</label>
+        <div class="formControls col-5">
+            <input type="hidden" name="id" value="@Model.Id" />
+            <input type="text" name="name" class="input-text" value="@Model.Name" placeholder="" datatype="*2-16" nullmsg="权限项名称不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>权限项描述：</label>
+        <div class="formControls col-5">
+            <input type="text" name="description" class="input-text" value="@Model.Description" placeholder="" datatype="*2-16" nullmsg="权限项描述不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <input type="button" value="更改" id="btnEditPerm" />
+    </div>
+</form>
+
+@section FooterScript
+{
+    <script type="text/javascript">
+        $("#formEdit").Validform({tiptype:2});
+        $(function() {
+            $("#btnEditPerm").click(function() {
+                var formData = $("#formEdit").serializeArray();
+                $.ajax({
+                    url: "/Permission/Edit",
+                    type: "post",
+                    data: formData,
+                    dataType: "json",
+                    success: function(msg) {
+                        if (msg.status == "ok") {
+                            window.parent.location.reload();
+                        } else {
+                            alert("error:"+msg.msg);
+                        }
+                    },
+                    error: function() {
+                        alert("请求失败！");
+                    }
+                });
+            });
+
+        });
+    </script>
+}

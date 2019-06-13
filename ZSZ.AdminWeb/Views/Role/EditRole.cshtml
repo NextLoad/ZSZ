@@ -1,0 +1,59 @@
+﻿@model ZSZ.AdminWeb.Models.RoleEditGetModel
+@{
+    ViewBag.Title = "EditRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="~/Role/EditRole" method="post" id="formEidt">
+    <div class="row cl">
+        <input type="hidden" name="id" value=" @Model.RoleDto.Id" />
+        <label class="form-label col-3"><span class="c-red">*</span>角色名称：</label>
+        <div class="formControls col-5">
+            <input type="text" name="name" class="input-text" placeholder="" datatype="*2-16" nullmsg="角色名称不能为空" value="@Model.RoleDto.Name" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        @foreach (var perm in @Model.PermissionDtoAll)
+        {
+            <div class="col-xs-12 col-sm-4">
+                <input type="checkbox" id="@perm.Id" name="permIds" value="@perm.Id"
+                       checked="@Model.PermissionDtoHas.Select(p => p.Id).Contains(perm.Id)" />
+                <label for="@perm.Id">@perm.Name</label>
+            </div>
+        }
+    </div>
+    <div class="row cl">
+        <input type="button" value="确定" id="btnEditRole" />
+    </div>
+</form>
+@section FooterScript
+{
+    
+    <script type="text/javascript">
+        $(function () {
+            $("#formEidt").Validform({tiptype:2});
+
+            $("#btnEditRole").click(function() {
+                var formData = $("#formEidt").serializeArray();
+                $.ajax({
+                    url: "/Role/EditRole",
+                    type: "post",
+                    data: formData,
+                    dataType: "json",
+                    success: function(msg) {
+                        if (msg.status == "ok") {
+                            window.parent.location.reload();
+                        } else {
+                            alert("修改失败！");
+                        }
+                    },
+                    error: function() {
+                        alert("请求失败！");
+                    }
+                });
+            });
+        });
+    </script>
+}
+

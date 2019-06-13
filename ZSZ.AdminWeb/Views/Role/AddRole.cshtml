@@ -5,29 +5,42 @@
 }
 
 <form action="~/Role/AddRole" method="post" id="formAdd">
-    角色名称：<input type="text" name="name" /><br />
-    @foreach (var perm in @Model)
-    {
-        <input type="checkbox" id="@perm.Id" name="permIds" value="@perm.Id"/><label for="@perm.Id">@perm.Name</label>
-    }
-    <br />
-    <input type="button" value="添加" id="btnAddRole" />
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>角色名称：</label>
+        <div class="formControls col-5">
+            <input type="text" name="name" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="角色名称不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        @foreach (var perm in @Model)
+        {
+            <div class="col-xs-12 col-sm-4">
+                <input type="checkbox" id="@perm.Id" name="permIds" value="@perm.Id" /><label for="@perm.Id">@perm.Name</label>
+            </div>
+        }
+    </div>
+    <div class="row cl">
+        <input type="button" value="添加" id="btnAddRole" />
+    </div>
 </form>
 
 @section FooterScript
 {
+    
     <script type="text/javascript">
         $(function() {
+            $("#formAdd").Validform({tiptype:2});
             $("#btnAddRole").click(function() {
                 var dataForm = $("#formAdd").serializeArray();
                 $.ajax({
-                    url:"/Role/AddRole",
+                    url: "/Role/AddRole",
                     type: "post",
                     data: dataForm,
                     dataType: "json",
                     success: function(msg) {
                         if (msg.status == "ok") {
-                            window.location.reload();
+                            window.parent.location.reload();
                         } else {
                             alert("error:" + msg.msg);
                         }
