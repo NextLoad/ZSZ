@@ -7,9 +7,9 @@
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
     <div class="text-c">
-        <form class="Huiform" method="post" action="" target="_self" id="formSearch">
+        <form class="Huiform" method="get" action="/Permission/Search" target="_self" id="formSearch">
             <input type="text" class="input-text" style="width:250px" placeholder="权限项名称" id="permName" name="name">
-            <button type="button" class="btn btn-success" id="btnSearch" name=""><i class="Hui-iconfont">&#xe665;</i> 搜权限项</button>
+            <button type="submit" class="btn btn-success" id="btnSearch" name=""><i class="Hui-iconfont">&#xe665;</i> 搜权限项</button>
         </form>
     </div>
     <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="admin_permission_add('添加权限项','/Permission/Add','','310')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加权限项</a></span> <span class="r">共有数据：<strong>@Model.Length</strong> 条</span> </div>
@@ -41,3 +41,84 @@
         </table>
     </form>
 </div>
+@section FooterScript
+{
+    <script type="text/javascript">
+        /*
+	参数解释：
+	title	标题
+	url		请求的url
+	id		需要操作的数据id
+	w		弹出层宽度（缺省调默认值）
+	h		弹出层高度（缺省调默认值）
+*/
+        /*管理员-权限-添加*/
+        function admin_permission_add(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+
+        /*管理员-权限-编辑*/
+        function admin_permission_edit(title, url, id, w, h) {
+            layer_show(title, url, w, h);
+        }
+
+        /*管理员-权限-删除*/
+        function admin_permission_del(obj, id) {
+            layer.confirm('权限项删除须谨慎，确认要删除吗？',
+                function(index) {
+                    $.ajax({
+                        url: "/Permission/Delete/" + id,
+                        type: "post",
+                        success: function(msg) {
+                            if (msg.status == "ok") {
+                                window.parent.location.reload();
+                                layer.msg('已删除!', { icon: 1, time: 1000 });
+                            } else {
+                                layer.msg('删除失败!', { icon: 2, time: 2000 });
+                            }
+                        },
+                        error: function() {
+                            alert("请求失败！");
+                        }
+                    });
+
+                });
+        }
+
+        /*批量删除*/
+        function datadel() {
+            layer.confirm('权限项删除须谨慎，确认要删除吗？',
+                function(index) {
+                    var formData = $("#formList").serializeArray();
+                    $.ajax({
+                        url: "/Permission/BatchDelete",
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        success: function(msg) {
+                            if (msg.status == "ok") {
+                                window.parent.location.reload();
+                                layer.msg('已删除!', { icon: 1, time: 1000 });
+                            } else {
+                                layer.msg('删除失败!', { icon: 2, time: 2000 });
+                            }
+                        },
+                        error: function() {
+                            alert("请求失败！");
+                        }
+                    });
+                });
+        }
+
+        $(function() {
+            //$("#btnSearch").click(function() {
+            //    var name = $("#permName").val();
+            //    $.ajax({
+            //        url: "/Permission/Search?name=" + name,
+            //        type:"get",
+
+            //    });
+            //});
+        });
+    </script>
+}

@@ -83,8 +83,12 @@ namespace ZSZ.AdminWeb.Controllers
         public ActionResult Search(string name)
         {
             PermissionDTO permissionDto = PermService.GetByName(name);
-            PermissionDTO[] permissionDtos = new PermissionDTO[]{};
-            return View(permissionDtos);
+            IList<PermissionDTO> permissionDtos = new List<PermissionDTO>();
+            if (permissionDto != null)
+            {
+                permissionDtos.Add(permissionDto);
+            }
+            return View("List",permissionDtos.ToArray());
         }
 
     }
