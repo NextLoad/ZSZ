@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZSZ.DTO
 {
+    [Serializable]
     public class AdminUserDTO:BaseDTO
     {
         public string Name { get; set; }
@@ -17,6 +18,8 @@ namespace ZSZ.DTO
         public string CityName { get; set; }
         public int LoginErrorTimes { get; set; }
         public DateTime? LastLoginErrorDateTime { get; set; }
+        public string[] RoleNames { get; set; }
+        public long[] RoleIds { get; set; }
         
     }
 }

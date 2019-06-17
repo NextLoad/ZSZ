@@ -19,7 +19,7 @@
             <div class="col-xs-12 col-sm-4">
                 <input type="checkbox" id="@perm.Id" name="permIds" value="@perm.Id"
                        checked="@Model.PermissionDtoHas.Select(p => p.Id).Contains(perm.Id)" />
-                <label for="@perm.Id">@perm.Name</label>
+                <label for="@perm.Id">@perm.Description</label>
             </div>
         }
     </div>

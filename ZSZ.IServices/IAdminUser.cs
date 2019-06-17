@@ -32,6 +32,16 @@ namespace ZSZ.IServices
         void UpdateAdminUser(long id, string name, string phoneNum, string password, string email, long? cityId);
 
         /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="name"></param>
+        /// <param name="phoneNum"></param>
+        /// <param name="email"></param>
+        /// <param name="cityId"></param>
+        void UpdateAdminUser(long id, string name, string phoneNum, string email, long? cityId);
+
+        /// <summary>
         /// 获取所有的管理员
         /// </summary>
         /// <returns></returns>

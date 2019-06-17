@@ -39,14 +39,7 @@ namespace ZSZ.Services
 
         public void UpdateAdminUser(long id, string name, string phoneNum, string password, string email, long? cityId)
         {
-            AdminUserEntity adminUser = new AdminUserEntity();
-            adminUser.Name = name;
-            adminUser.PhoneNum = phoneNum;
-            string salt = Web.Common.WebCommonHelper.CreateVerifyCode(5);
-            adminUser.PasswordSalt = salt;
-            adminUser.CityId = cityId;
-            adminUser.EMail = email;
-            adminUser.PasswordHash = Common.CommonHelper.CalcMD5(salt + password);
+
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 CommonService<AdminUserEntity> cs = new CommonService<AdminUserEntity>(ctx);
@@ -55,10 +48,40 @@ namespace ZSZ.Services
                 {
                     throw new ArgumentException("用户不存在" + id);
                 }
-                ctx.AdminUsers.Add(adminUser);
+
+                AdminUserEntity adminUser = cs.GetById(id);
+                adminUser.Name = name;
+                adminUser.PhoneNum = phoneNum;
+                string salt = Web.Common.WebCommonHelper.CreateVerifyCode(5);
+                adminUser.PasswordSalt = salt;
+                adminUser.CityId = cityId;
+                adminUser.EMail = email;
+                adminUser.PasswordHash = Common.CommonHelper.CalcMD5(salt + password);
                 ctx.SaveChanges();
             }
         }
+
+        public void UpdateAdminUser(long id, string name, string phoneNum, string email, long? cityId)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<AdminUserEntity> cs = new CommonService<AdminUserEntity>(ctx);
+                bool exists = cs.GetAll().Any(u => u.Id == id);
+                if (!exists)
+                {
+                    throw new ArgumentException("用户不存在" + id);
+                }
+
+                var adminUser = cs.GetById(id);
+                adminUser.Name = name;
+                adminUser.PhoneNum = phoneNum;
+                adminUser.CityId = cityId;
+                adminUser.EMail = email;
+                ctx.SaveChanges();
+            }
+        }
+
+
 
         public AdminUserDTO[] GetAll()
         {
@@ -86,6 +109,8 @@ namespace ZSZ.Services
             auDTO.LoginErrorTimes = adminUserEntity.LoginErrorTimes;
             auDTO.CreateDateTime = adminUserEntity.CreateDateTime;
             auDTO.Id = adminUserEntity.Id;
+            auDTO.RoleIds = adminUserEntity.RoleEntities.Select(r => r.Id).ToArray();
+            auDTO.RoleNames = adminUserEntity.RoleEntities.Select(r => r.Name).ToArray();
             return auDTO;
         }
 

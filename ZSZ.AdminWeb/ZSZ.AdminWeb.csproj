@@ -49,6 +49,9 @@
     <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="CaptchaGen, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CaptchaGen.1.0.0\lib\net40\CaptchaGen.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -1243,6 +1246,12 @@
     <Compile Include="lib\ueditor\1.4.3\net\App_Code\PathFormater.cs" />
     <Compile Include="lib\ueditor\1.4.3\net\App_Code\UploadHandler.cs" />
     <Compile Include="ModelBinders\TrimToDBCModelBinder.cs" />
+    <Compile Include="Models\AdminUserAddNewGetViewModel.cs" />
+    <Compile Include="Models\AdminUserAddNewModel.cs" />
+    <Compile Include="Models\AdminUserConditionModel.cs" />
+    <Compile Include="Models\AdminUserEditGetViewModel.cs" />
+    <Compile Include="Models\AdminUserEditModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PermissionAddModel.cs" />
     <Compile Include="Models\PermissionEditModel.cs" />
     <Compile Include="Models\RoleAddModel.cs" />
@@ -1302,10 +1311,10 @@
     <Content Include="skin\orange\Thumbs.db" />
     <Content Include="skin\red\Thumbs.db" />
     <Content Include="skin\yellow\Thumbs.db" />
-    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\Main\Login.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\AdminUser\Index.cshtml" />
+    <Content Include="Views\AdminUser\List.cshtml" />
     <Content Include="js\jquery-1.10.2.min.map" />
     <Content Include="Views\Role\List.cshtml" />
     <Content Include="Views\Role\AddRole.cshtml" />
@@ -1314,6 +1323,8 @@
     <Content Include="Views\Permission\Add.cshtml" />
     <Content Include="Views\Permission\Edit.cshtml" />
     <Content Include="Views\Permission\Search.cshtml" />
+    <Content Include="Views\AdminUser\Add.cshtml" />
+    <Content Include="Views\AdminUser\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

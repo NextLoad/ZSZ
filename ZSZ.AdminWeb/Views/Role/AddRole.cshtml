@@ -16,7 +16,7 @@
         @foreach (var perm in @Model)
         {
             <div class="col-xs-12 col-sm-4">
-                <input type="checkbox" id="@perm.Id" name="permIds" value="@perm.Id" /><label for="@perm.Id">@perm.Name</label>
+                <input type="checkbox" id="@perm.Id" name="permIds" value="@perm.Id" /><label for="@perm.Id">@perm.Description</label>
             </div>
         }
     </div>
