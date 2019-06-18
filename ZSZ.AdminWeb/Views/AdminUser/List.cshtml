@@ -59,6 +59,7 @@
 {
     <script type="text/javascript">
         function datadel() {
+            layer.confirm('确认要删除吗？',function(index){
             var formData = $("#formList").serializeArray();
             $.ajax({
                 url: "/AdminUser/BatchDelete",
@@ -69,12 +70,13 @@
                     if (msg.status == "ok") {
                         window.parent.location.reload();
                     } else {
-                        layer.msg('删除失败!');
+                        layer.msg('删除失败!'+msg.msg);
                     }
                 },
                 error: function () {
                     alert("网络请求失败！");
                 }
+            });
             });
         }
         /*
@@ -101,7 +103,7 @@
                             $(obj).parents("tr").remove();
                             layer.msg('已删除!', { icon: 1, time: 1000 });
                         } else {
-                            layer.msg('删除失败!');
+                            layer.msg('删除失败!'+msg.msg);
                         }
                     },
                     error:function() {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ZSZ.AdminWeb.App_Start;
 using ZSZ.AdminWeb.Models;
 using ZSZ.DTO;
 using ZSZ.IServices;
@@ -14,18 +15,22 @@ namespace ZSZ.AdminWeb.Controllers
     {
         public IPermission PermService { get; set; }
         // GET: Permission
+
+        [CheckPermission("permission.list")]
         public ActionResult List()
         {
             PermissionDTO[] perms = PermService.GetAll();
             return View(perms);
         }
 
+        [CheckPermission("permission.delete")]
         public ActionResult Delete(long id)
         {
             PermService.MarkDeleted(id);
             return Json(new AjaxResult { Status = "ok" });
         }
 
+        [CheckPermission("permission.delete")]
         public ActionResult BatchDelete(long[] ids)
         {
             foreach (long id in ids)
@@ -36,12 +41,14 @@ namespace ZSZ.AdminWeb.Controllers
             return Json(new AjaxResult() { Status = "ok" });
         }
 
+        [CheckPermission("permission.add")]
         [HttpGet]
         public ActionResult Add()
         {
             return View();
         }
 
+        [CheckPermission("permission.add")]
         [HttpPost]
         public ActionResult Add(PermissionAddModel permissionAdd)
         {
@@ -58,6 +65,7 @@ namespace ZSZ.AdminWeb.Controllers
             return Json(new AjaxResult { Status = "ok" });
         }
 
+        [CheckPermission("permission.edit")]
         [HttpGet]
         public ActionResult Edit(long id)
         {
@@ -65,6 +73,7 @@ namespace ZSZ.AdminWeb.Controllers
             return View(permissionDto);
         }
 
+        [CheckPermission("permission.edit")]
         [HttpPost]
         public ActionResult Edit(PermissionEditModel permissionEdit)
         {
@@ -80,6 +89,7 @@ namespace ZSZ.AdminWeb.Controllers
             return Json(new AjaxResult() { Status = "ok" });
         }
 
+        [CheckPermission("permission.list")]
         public ActionResult Search(string name)
         {
             PermissionDTO permissionDto = PermService.GetByName(name);

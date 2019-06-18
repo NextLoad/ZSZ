@@ -4,6 +4,7 @@ using System.Linq;
 using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
+using ZSZ.AdminWeb.App_Start;
 using ZSZ.AdminWeb.Models;
 using ZSZ.DTO;
 using ZSZ.IServices;
@@ -17,12 +18,14 @@ namespace ZSZ.AdminWeb.Controllers
 
         public IPermission permService { get; set; }
         // GET: Role
+        [CheckPermission("role.list")]
         public ActionResult List()
         {
             RoleDTO[] roleDtos = roleService.GetAll();
             return View(roleDtos);
         }
 
+        [CheckPermission("role.add")]
         [HttpGet]
         public ActionResult AddRole()
         {
@@ -30,6 +33,7 @@ namespace ZSZ.AdminWeb.Controllers
             return View(permissionDtos);
         }
 
+        [CheckPermission("role.add")]
         [HttpPost]
         public ActionResult AddRole(RoleAddModel roleAddModel)
         {
@@ -44,6 +48,7 @@ namespace ZSZ.AdminWeb.Controllers
             return Json(new AjaxResult() { Status = "ok" });
         }
 
+        [CheckPermission("role.edit")]
         [HttpGet]
         public ActionResult EditRole(long id)
         {
@@ -57,6 +62,7 @@ namespace ZSZ.AdminWeb.Controllers
             return View(roleEditGet);
         }
 
+        [CheckPermission("role.edit")]
         [HttpPost]
         public ActionResult EditRole(RoleEditModel roleEdit)
         {
@@ -70,13 +76,14 @@ namespace ZSZ.AdminWeb.Controllers
             return Json(new AjaxResult() { Status = "ok" });
         }
 
-
+        [CheckPermission("role.delete")]
         public ActionResult DeleteRole(long id)
         {
             roleService.MarkDeleted(id);
             return Json(new AjaxResult() { Status = "ok" });
         }
 
+        [CheckPermission("role.delete")]
         public ActionResult DeleteBatchRole(long[] ids)
         {
             foreach (long id in ids)

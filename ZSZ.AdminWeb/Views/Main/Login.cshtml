@@ -10,24 +10,27 @@
 <div class="header"></div>
 <div class="loginWraper">
     <div id="loginform" class="loginBox">
-        <form class="form form-horizontal" action="~/Main/Login" method="post">
+        <form class="form form-horizontal" action="~/Main/Login" method="post" id="formLogin">
             <div class="row cl">
                 <label class="form-label col-3"><i class="Hui-iconfont">&#xe60d;</i></label>
-                <div class="formControls col-8">
-                    <input id="" name="phoneNum" type="text" placeholder="账户" class="input-text size-L">
+                <div class="formControls col-5">
+                    <input id="" name="phoneNum" type="text" placeholder="账户" class="input-text size-L" dataType="m" errormsg="请输入正确的手机号" nullmsg="请输入手机号">
                 </div>
+                <div class="formControls col-4"></div>
             </div>
             <div class="row cl">
                 <label class="form-label col-3"><i class="Hui-iconfont">&#xe60e;</i></label>
-                <div class="formControls col-8">
-                    <input id="" name="password" type="password" placeholder="密码" class="input-text size-L">
+                <div class="formControls col-5">
+                    <input id="" name="password" type="password" placeholder="密码" class="input-text size-L" dataType="*2-16" errormsg="密码长度在2-16之间" nullmsg="请输入密码">
                 </div>
+                <div class="formControls col-4"></div>
             </div>
             <div class="row cl">
                 <div class="formControls col-8 col-offset-3">
-                    <input class="input-text size-L" name="verifyCode" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
+                    <input class="input-text size-L" name="verifyCode" type="text" placeholder="验证码" dataType="*4-4" errormsg="验证码长度是4位" nullmsg="请输入验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;">
                     <img id="imgVerify" src="~/Main/CreateVerifyCode"> <a id="kanbuq" href="javascript:;">看不清，换一张</a>
                 </div>
+                <div class="formControls col-1"></div>
             </div>
             <div class="row">
                 <div class="formControls col-8 col-offset-3">
@@ -39,7 +42,7 @@
             </div>
             <div class="row">
                 <div class="formControls col-8 col-offset-3">
-                    <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+                    <input name="" type="button" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;" id="btnLogin">
                     <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
                 </div>
             </div>
@@ -63,8 +66,32 @@
             "hm.baidu.com/h.js%3F080836300300be57b7f34f4b3e97d911' type='text/javascript'%3E%3C/script%3E"));
 
         $(function() {
+            var validForm = $("#formLogin").Validform({ tiptype: 2 });
             $("#imgVerify,#kanbuq").click(function() {
                 $("#imgVerify").attr("src", "/Main/CreateVerifyCode?" + Math.random());
+            });
+            $("#btnLogin").click(function() {
+                if (validForm.check(false)) {
+                    var dataForm = $("#formLogin").serializeArray();
+                    $.ajax({
+                        url: "/Main/Login",
+                        type: "post",
+                        data: dataForm,
+                        dataType: "json",
+                        success: function(msg) {
+                            if (msg.status == "ok") {
+                                window.location = "/Main/Index";
+                            } else {
+                                alert("error:" + msg.msg);
+                                $("#imgVerify").click();
+                            }
+                        },
+                        error: function() {
+                            alert("网络请求失败！");
+                            $("#imgVerify").click();
+                        }
+                    });
+                }
             });
         });
     </script>

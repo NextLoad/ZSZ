@@ -23,6 +23,7 @@ namespace ZSZ.AdminWeb
 
             GlobalFilters.Filters.Add(new Filters.ExceptionFilter());
             GlobalFilters.Filters.Add(new Web.Common.JsonNetActionFilter());
+            GlobalFilters.Filters.Add(new Filters.AuthorizationFilter());
 
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ZSZ.AdminWeb.App_Start;
 using ZSZ.AdminWeb.Models;
 using ZSZ.DTO;
 using ZSZ.IServices;
@@ -19,6 +20,8 @@ namespace ZSZ.AdminWeb.Controllers
 
         public ICity CityService { get; set; }
         // GET: AdminUser
+
+        [CheckPermission("adminuser.list")]
         public ActionResult List(AdminUserConditionModel adminUserCondition)
         {
             var adminUsers = AdminUserService.GetAll();
@@ -40,6 +43,7 @@ namespace ZSZ.AdminWeb.Controllers
             return View(adminUsers);
         }
 
+        [CheckPermission("adminuser.add")]
         [HttpGet]
         public ActionResult Add()
         {
@@ -52,6 +56,7 @@ namespace ZSZ.AdminWeb.Controllers
             return View(addNewGetView);
         }
 
+        [CheckPermission("adminuser.add")]
         [HttpPost]
         public ActionResult Add(AdminUserAddNewModel adminUser)
         {
@@ -71,6 +76,7 @@ namespace ZSZ.AdminWeb.Controllers
             return Json(new AjaxResult { Status = "ok" });
         }
 
+        [CheckPermission("adminuser.delete")]
         public ActionResult Delete(long id)
         {
             if (AdminUserService.MarkDeleted(id))
@@ -83,6 +89,7 @@ namespace ZSZ.AdminWeb.Controllers
             }
         }
 
+        [CheckPermission("adminuser.delete")]
         public ActionResult BatchDelete(long[] ids)
         {
             foreach (long id in ids)
@@ -93,7 +100,7 @@ namespace ZSZ.AdminWeb.Controllers
             return Json(new AjaxResult { Status = "ok" });
         }
 
-
+        [CheckPermission("adminuser.edit")]
         [HttpGet]
         public ActionResult Edit(long id)
         {
@@ -107,6 +114,7 @@ namespace ZSZ.AdminWeb.Controllers
             return View(adminUserEdit);
         }
 
+        [CheckPermission("adminuser.edit")]
         [HttpPost]
         public ActionResult Edit(AdminUserEditModel AdminUser)
         {

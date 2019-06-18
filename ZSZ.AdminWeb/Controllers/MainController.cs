@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using CaptchaGen;
 using ZSZ.AdminWeb.Models;
 using ZSZ.IServices;
+using ZSZ.Web.Common;
 
 namespace ZSZ.AdminWeb.Controllers
 {
@@ -16,33 +17,36 @@ namespace ZSZ.AdminWeb.Controllers
         public IAdminUser AdminUserService { get; set; }
         // GET: Main
 
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult Login(LoginModel loginModel)
         {
-            if (TempData["verifyCode"] == null)
+            if (!ModelState.IsValid)
             {
-                return Content("验证码错误！");
+                return Json(new AjaxResult
+                {
+                    Status = "error",
+                    Msg = Web.Common.WebCommonHelper.GetValidMsg(ModelState)
+                });
             }
-
-            if (loginModel.VerifyCode != (string)TempData["verifyCode"])
+            if (TempData["verifyCode"] == null || loginModel.VerifyCode != (string)TempData["verifyCode"])
             {
-                return Content("验证码错误！");
+                return Json(new AjaxResult { Status = "error", Msg = "验证码错误" });
             }
 
             var isLogin = AdminUserService.CheckLogin(loginModel.PhoneNum, loginModel.Password);
             if (isLogin)
             {
                 Session["userInfo"] = AdminUserService.GetByPhoneNum(loginModel.PhoneNum);
-                return Content("登录成功！");
+                return Json(new AjaxResult { Status = "ok" });
             }
-            else
-            {
-                return Content("用户名或密码错误");
-            }
+
+            return Json(new AjaxResult { Status = "error", Msg = "用户名或密码错误" });
         }
 
         public ActionResult CreateVerifyCode()

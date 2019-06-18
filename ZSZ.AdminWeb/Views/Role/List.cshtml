@@ -60,7 +60,7 @@
                                 layer.msg('已删除!', { icon: 1, time: 1000 });
                                 window.location.reload();
                             } else {
-                                layer.msg('删除失败!', { icon: 2, time: 1000 });
+                                layer.msg('删除失败!'+msg.msg, { icon: 2, time: 1000 });
                             }
                         },
                         error: function() {
@@ -83,7 +83,7 @@
                                 $(obj).parents("tr").remove();
                                 layer.msg('已删除!', { icon: 1, time: 1000 });
                             } else {
-                                layer.msg('删除失败!', { icon: 2, time: 1000 });
+                                layer.msg('删除失败!'+msg.msg, { icon: 2, time: 1000 });
                             }
                         },
                         error: function() {
