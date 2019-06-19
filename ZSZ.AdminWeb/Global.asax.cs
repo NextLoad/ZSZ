@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
+using ZSZ.AdminWeb.App_Start;
 using ZSZ.AdminWeb.ModelBinders;
 using ZSZ.IServices;
 
@@ -21,9 +22,15 @@ namespace ZSZ.AdminWeb
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             System.Web.Mvc.ModelBinders.Binders.Add(typeof(string), new TrimToDBCModelBinder());
 
+
+            FilterConfig.RegistFilter(GlobalFilters.Filters);
+
+            /*
             GlobalFilters.Filters.Add(new Filters.ExceptionFilter());
             GlobalFilters.Filters.Add(new Web.Common.JsonNetActionFilter());
             GlobalFilters.Filters.Add(new Filters.AuthorizationFilter());
+            */
+
 
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
