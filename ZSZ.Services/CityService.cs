@@ -49,5 +49,34 @@ namespace ZSZ.Services
                 return ToDTO(cs.GetById(id));
             }
         }
+
+        public CityDTO[] GetPageData(int currentIndex, int pageSize)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<CityEntity> cs = new CommonService<CityEntity>(ctx);
+                return cs.GetPageData(currentIndex, pageSize).AsNoTracking().ToList().Select(c => ToDTO(c)).ToArray();
+            }
+        }
+
+        public void UpdateCity(long id,string name)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<CityEntity> cs = new CommonService<CityEntity>(ctx);
+                var city = cs.GetById(id);
+                city.Name = name;
+                ctx.SaveChanges();
+            }
+        }
+
+        public void MarkDeleted(long id)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<CityEntity> cs = new CommonService<CityEntity>(ctx);
+                cs.MarkDeleted(id);
+            }
+        }
     }
 }

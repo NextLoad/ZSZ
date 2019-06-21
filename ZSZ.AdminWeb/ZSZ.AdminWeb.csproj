@@ -1228,10 +1228,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AdminHelper.cs" />
     <Compile Include="App_Start\CheckPermissionAttribute.cs" />
     <Compile Include="App_Start\FilertConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
+    <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\HouseController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -1328,6 +1331,10 @@
     <Content Include="Views\Permission\Search.cshtml" />
     <Content Include="Views\AdminUser\Add.cshtml" />
     <Content Include="Views\AdminUser\Edit.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
+    <Content Include="Views\City\List.cshtml" />
+    <Content Include="Views\City\Add.cshtml" />
+    <Content Include="Views\City\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1338,6 +1345,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
+    <Folder Include="Views\House\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSZ.Common\ZSZ.Common.csproj">

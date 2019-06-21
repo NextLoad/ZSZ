@@ -28,5 +28,25 @@ namespace ZSZ.IServices
         /// <param name="id"></param>
         /// <returns></returns>
         CityDTO GetById(long id);
+
+        /// <summary>
+        /// 分页获取数据
+        /// </summary>
+        /// <param name="currentIndex">页码</param>
+        /// <param name="pageSize">获取条数</param>
+        /// <returns></returns>
+        CityDTO[] GetPageData(int currentIndex,int pageSize);
+
+        /// <summary>
+        /// 更新城市
+        /// </summary>
+        /// <param name="id"></param>
+        void UpdateCity(long id,string name);
+
+        /// <summary>
+        /// 标记删除
+        /// </summary>
+        /// <param name="id"></param>
+        void MarkDeleted(long id);
     }
 }

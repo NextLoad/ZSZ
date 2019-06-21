@@ -65,6 +65,10 @@
       <Project>{11b1e032-75bd-4e47-8de6-6be1245b81e5}</Project>
       <Name>ZSZ.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ZSZ.Web.Common\ZSZ.Web.Common.csproj">
+      <Project>{29fed61a-f573-446f-b4f5-9302157c4ae6}</Project>
+      <Name>ZSZ.Web.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

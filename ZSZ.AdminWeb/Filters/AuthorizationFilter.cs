@@ -19,10 +19,11 @@ namespace ZSZ.AdminWeb.Filters
                 filterContext.ActionDescriptor.GetCustomAttributes(typeof(CheckPermissionAttribute), false) as
                     CheckPermissionAttribute[];
             if (checks == null || checks.Length <= 0) return;
-            AdminUserDTO adminUser = filterContext.HttpContext.Session["userInfo"] as AdminUserDTO;
-            long? userid = 0;
+            //AdminUserDTO adminUser = filterContext.HttpContext.Session["userInfo"] as AdminUserDTO;
+
+            long? userid = AdminHelper.GetUserId(filterContext.HttpContext);
             //没有登录
-            if (adminUser == null)
+            if (userid == null)
             {
                 if (filterContext.HttpContext.Request.IsAjaxRequest())
                 {
@@ -43,9 +44,6 @@ namespace ZSZ.AdminWeb.Filters
 
                 return;
             }
-            userid = (long?)(adminUser).Id;
-
-
             IAdminUser adminUserService = DependencyResolver.Current.GetService<IAdminUser>();
 
             foreach (var check in checks)

@@ -1,0 +1,50 @@
+﻿@model ZSZ.DTO.CityDTO
+    @{
+        ViewBag.Title = "编辑城市";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <form action="~/City/Edit" method="post" id="formEdit">
+        <div class="row cl">
+            <label class="form-label col-3"><span class="c-red">*</span>城市名称：</label>
+            <div class="formControls col-5">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <input type="text" name="name" class="input-text" value="@Model.Name" placeholder="" datatype="*2-16" nullmsg="城市名称不能为空" />
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row cl">
+            <input type="button" value="更改" id="btnEdit" />
+        </div>
+    </form>
+
+    @section FooterScript
+{
+        <script type="text/javascript">
+        var formValid = $("#formEdit").Validform({ tiptype: 2 });
+        $(function() {
+            $("#btnEdit").click(function() {
+                if (formValid.check(false)) {
+                    var formData = $("#formEdit").serializeArray();
+                    $.ajax({
+                        url: "/City/Edit",
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        success: function(msg) {
+                            if (msg.status == "ok") {
+                                window.parent.location.reload();
+                            } else {
+                                alert("error:" + msg.msg);
+                            }
+                        },
+                        error: function() {
+                            alert("请求失败！");
+                        }
+                    });
+                }
+            });
+
+        });
+        </script>
+    }

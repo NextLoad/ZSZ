@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AjaxResult.cs" />
+    <Compile Include="CommonPageBar.cs" />
     <Compile Include="JsonNetActionFilter.cs" />
     <Compile Include="JsonNetResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,0 +1,128 @@
+﻿@using ZSZ.Web.Common
+@model ZSZ.DTO.CityDTO[]
+@{
+    ViewBag.Title = "城市列表";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section HeaderScript
+{
+    <style type="text/css">
+        #pageBar li {
+            float: left;
+            margin-left: 5px;
+        }
+    </style>
+}
+
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 城市区域管理 <span class="c-gray en">&gt;</span> 城市管理 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="pd-20">
+    <div class="cl pd-5 bg-1 bk-gray"> <span class="l"> <a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a class="btn btn-primary radius" href="javascript:;" onclick="admin_city_add('添加城市','/City/Add','800')"><i class="Hui-iconfont">&#xe600;</i> 添加城市</a> </span> <span class="r">共有数据：<strong>@ViewBag.totalCount</strong> 条</span> </div>
+    <form id="formDel">
+        <table class="table table-border table-bordered table-hover table-bg">
+            <thead>
+            <tr>
+                <th scope="col" colspan="6">城市管理</th>
+            </tr>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" value="" name=""></th>
+                <th width="200">城市名称</th>
+                <th width="70">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach (var city in @Model)
+            {
+                <tr class="text-c">
+                    <td><input type="checkbox" value="@city.Id" name="ids"></td>
+                    <td>@city.Name</td>
+                    <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_city_edit('城市编辑', '/City/Edit/@city.Id', '500','100')" style="text-decoration: none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_city_del(this, @city.Id)" class="ml-5" style="text-decoration: none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </form>
+    @{
+        CommonPageBar pageBar = new CommonPageBar();
+        pageBar.CurrentPage = ViewBag.pageIndex;
+        pageBar.CurrentPageClassName = "sa";
+        pageBar.MaxPageCount = 10;
+        pageBar.PageSize = 10;
+        pageBar.TotalCount = ViewBag.totalCount;
+        pageBar.UrlPattern = "/City/List?pageIndex={pn}";
+        string html = pageBar.GetPagerHtml();
+        <div id="pageBar">@Html.Raw(html)</div>
+
+    }
+</div>
+@section FooterScript
+{
+    <script type="text/javascript">
+        /*
+        参数解释：
+        title	标题
+        url		请求的url
+        id		需要操作的数据id
+        w		弹出层宽度（缺省调默认值）
+        h		弹出层高度（缺省调默认值）
+        */
+        /*管理员-权限-添加*/
+        function admin_city_add(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+
+        function admin_city_edit(title, url, w, h) {
+            layer_show(title, url, w, h);
+        }
+        function admin_city_del(obj, id) {
+            layer.confirm('城市删除须谨慎，确认要删除吗？',
+                function (index) {
+                    $.ajax({
+                        url: "/City/Delete/" + id,
+                        type: "post",
+                        success: function (msg) {
+                            if (msg.status == "ok") {
+                                window.parent.location.reload();
+                                layer.msg('已删除!', { icon: 1, time: 1000 });
+                            } else {
+                                layer.msg('删除失败!', { icon: 2, time: 2000 });
+                            }
+                        },
+                        error: function () {
+                            alert("请求失败！");
+                        }
+                    });
+
+                });
+        }
+
+        /*批量删除*/
+        function datadel() {
+            layer.confirm('城市删除须谨慎，确认要删除吗？',
+                function (index) {
+                    var formData = $("#formDel").serializeArray();
+                    $.ajax({
+                        url: "/City/BetchDelete",
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        success: function (msg) {
+                            if (msg.status == "ok") {
+                                window.parent.location.reload();
+                                layer.msg('已删除!', { icon: 1, time: 1000 });
+                            } else {
+                                layer.msg('删除失败!', { icon: 2, time: 2000 });
+                            }
+                        },
+                        error: function () {
+                            alert("请求失败！");
+                        }
+                    });
+                });
+        }
+
+
+    </script>
+}
+

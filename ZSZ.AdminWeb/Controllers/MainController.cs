@@ -6,6 +6,7 @@ using System.Security.AccessControl;
 using System.Web;
 using System.Web.Mvc;
 using CaptchaGen;
+using ZSZ.AdminWeb.App_Start;
 using ZSZ.AdminWeb.Models;
 using ZSZ.IServices;
 using ZSZ.Web.Common;
@@ -15,7 +16,18 @@ namespace ZSZ.AdminWeb.Controllers
     public class MainController : Controller
     {
         public IAdminUser AdminUserService { get; set; }
-        // GET: Main
+
+        public ActionResult Index()
+        {
+            long? userId = AdminHelper.GetUserId(this.HttpContext);
+            if (userId == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            var adminUser = AdminUserService.GetById(userId.Value);
+            return View(adminUser);
+        }
 
         [HttpGet]
         public ActionResult Login()
@@ -42,11 +54,18 @@ namespace ZSZ.AdminWeb.Controllers
             var isLogin = AdminUserService.CheckLogin(loginModel.PhoneNum, loginModel.Password);
             if (isLogin)
             {
-                Session["userInfo"] = AdminUserService.GetByPhoneNum(loginModel.PhoneNum);
+                var adminUser = AdminUserService.GetByPhoneNum(loginModel.PhoneNum);
+                AdminHelper.SetUserId(this.HttpContext, adminUser.Id);
                 return Json(new AjaxResult { Status = "ok" });
             }
 
             return Json(new AjaxResult { Status = "error", Msg = "用户名或密码错误" });
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Abandon();
+            return RedirectToAction(nameof(Login));
         }
 
         public ActionResult CreateVerifyCode()
