@@ -59,7 +59,7 @@ namespace ZSZ.Web.Common
 
             string href = string.Empty;
             //如果不是是第一页
-            if (CurrentPage != 1)
+            if (CurrentPage > 1)
             {
                 href = UrlPattern.Replace("{pn}", "1");
                 pageHtml.Append("<li><a href='").Append(href).Append("'>首页</a></li>");
@@ -87,7 +87,7 @@ namespace ZSZ.Web.Common
 
 
             //如果不是最后一页
-            if (CurrentPage != pageCount)
+            if (CurrentPage < pageCount)
             {
                 href = UrlPattern.Replace("{pn}", (CurrentPage + 1).ToString());
                 pageHtml.Append("<li><a href='").Append(href).Append("'>下一页</a></li>");
