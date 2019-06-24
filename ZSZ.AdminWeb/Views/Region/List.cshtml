@@ -21,28 +21,28 @@
     <form id="formDel">
         <table class="table table-border table-bordered table-hover table-bg">
             <thead>
-            <tr>
-                <th scope="col" colspan="6">区域管理</th>
-            </tr>
-            <tr class="text-c">
-                <th width="25"><input type="checkbox" value="" name=""></th>
-                <th width="200">区域名称</th>
-                <th width="200">所属城市</th>
-                <th width="70">操作</th>
-            </tr>
+                <tr>
+                    <th scope="col" colspan="6">区域管理</th>
+                </tr>
+                <tr class="text-c">
+                    <th width="25"><input type="checkbox" value="" name=""></th>
+                    <th width="200">区域名称</th>
+                    <th width="200">所属城市</th>
+                    <th width="70">操作</th>
+                </tr>
             </thead>
             <tbody>
 
-            @foreach (var region in @Model.Regions)
-            {
-                <tr class="text-c">
-                    <td><input type="checkbox" value="@region.Id" name="ids"></td>
-                    <td>@region.Name</td>
-                    <input type="hidden" value ="@region.CityId" name="cityId"/>
-                    <td>@region.CityName</td>
-                    <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_region_edit('区域编辑', '/Region/Edit/@region.Id', '500','100')" style="text-decoration: none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_region_del(this, @region.Id)" class="ml-5" style="text-decoration: none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
-                </tr>
-            }
+                @foreach (var region in @Model.Regions)
+                {
+                    <tr class="text-c">
+                        <td><input type="checkbox" value="@region.Id" name="ids"></td>
+                        <td>@region.Name</td>
+                        <input type="hidden" value="@region.CityId" name="cityId" />
+                        <td>@region.CityName</td>
+                        <td class="f-14"><a title="编辑" href="javascript:;" onclick="admin_region_edit('区域编辑', '/Region/Edit/@region.Id', '500','300')" style="text-decoration: none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_region_del(this, @region.Id)" class="ml-5" style="text-decoration: none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+                    </tr>
+                }
             </tbody>
         </table>
     </form>
@@ -51,9 +51,9 @@
         pageBar.CurrentPage = Model.PageIndex;
         pageBar.CurrentPageClassName = "sa";
         pageBar.MaxPageCount = 10;
-        pageBar.PageSize = 10;
+        pageBar.PageSize = Model.PageCount;
         pageBar.TotalCount = Model.TotalCount;
-        pageBar.UrlPattern = "/Region/List?cityId="+Model.CityId+"&pageIndex={pn}";
+        pageBar.UrlPattern = "/Region/List?cityId=" + Model.CityId + "&pageIndex={pn}";
         string html = pageBar.GetPagerHtml();
         <div id="pageBar">@Html.Raw(html)</div>
 
@@ -79,7 +79,7 @@
             layer_show(title, url, w, h);
         }
         function admin_region_del(obj, id) {
-            layer.confirm('城市删除须谨慎，确认要删除吗？',
+            layer.confirm('区域删除须谨慎，确认要删除吗？',
                 function (index) {
                     $.ajax({
                         url: "/Region/Delete/" + id,
@@ -102,7 +102,7 @@
 
         /*批量删除*/
         function datadel() {
-            layer.confirm('城市删除须谨慎，确认要删除吗？',
+            layer.confirm('区域删除须谨慎，确认要删除吗？',
                 function (index) {
                     var formData = $("#formDel").serializeArray();
                     $.ajax({

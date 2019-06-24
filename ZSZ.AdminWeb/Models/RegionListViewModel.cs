@@ -12,6 +12,8 @@ namespace ZSZ.AdminWeb.Models
         public RegionDTO[] Regions { get; set; }
         public long TotalCount { get; set; }
         public int PageIndex { get; set; }
+
+        public int PageCount { get; set; }
       
     }
 }

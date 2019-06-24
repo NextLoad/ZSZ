@@ -1261,6 +1261,9 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PermissionAddModel.cs" />
     <Compile Include="Models\PermissionEditModel.cs" />
+    <Compile Include="Models\RegionAddViewModel.cs" />
+    <Compile Include="Models\RegionEditGetViewModel.cs" />
+    <Compile Include="Models\RegionEditViewModel.cs" />
     <Compile Include="Models\RegionListViewModel.cs" />
     <Compile Include="Models\RoleAddModel.cs" />
     <Compile Include="Models\RoleEditGetModel.cs" />
@@ -1338,6 +1341,8 @@
     <Content Include="Views\City\Add.cshtml" />
     <Content Include="Views\City\Edit.cshtml" />
     <Content Include="Views\Region\List.cshtml" />
+    <Content Include="Views\Region\Add.cshtml" />
+    <Content Include="Views\Region\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

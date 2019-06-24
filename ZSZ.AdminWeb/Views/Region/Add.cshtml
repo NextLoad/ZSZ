@@ -1,0 +1,58 @@
+﻿@using ZSZ.DTO
+@model ZSZ.DTO.CityDTO[]
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="~/Region/Add" method="post" id="formAdd">
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>区域名称：</label>
+        <div class="formControls col-5">
+            <input type="text" name="name" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="区域名称不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>城市名称：</label>
+        <div class="formControls col-5">
+            @Html.DropDownList("cityId", new SelectList(Model, nameof(CityDTO.Id), nameof(CityDTO.Name)))
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <input type="button" value="添加" id="btnAddRegion" />
+    </div>
+</form>
+@section FooterScript
+{
+    <script type="text/javascript">
+        $(function() {
+            var formValid = $("#formAdd").Validform({ tiptype: 2 });
+            $("#btnAddRegion").click(function () {
+                if (formValid.check(false)) {
+                    var formData = $("#formAdd").serializeArray();
+                    $.ajax({
+                        url: "/Region/Add",
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        success: function(msg) {
+                            if (msg.status == "ok") {
+                                layer.msg('添加成功!', { icon: 1, time: 1000 });
+                                window.parent.location.reload();
+                            } else {
+                                alert("error:" + msg.msg);
+                            }
+                        },
+                        error: function() {
+                            alert("请求失败！");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+
