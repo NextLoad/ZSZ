@@ -19,8 +19,13 @@ namespace ZSZ.AdminWeb.Controllers
 
         public ActionResult List(CommunitityListModel communitityList)
         {
-            var communitities = CommunitityService.GetByRegionId(communitityList.RegionId);
-
+            //var communitities = CommunitityService.GetByRegionId(communitityList.RegionId);
+            long? cityId = AdminHelper.GetCityId(this.HttpContext);
+            if (cityId == null)
+            {
+                return View("~/Views/Shared/Error.cshtml", (object)"总部人员无法管理区域");
+            }
+            var communitities = CommunitityService.GetByCityId(cityId.Value);
             if (communitityList.StartDateTime != DateTime.MinValue)
             {
                 communitities = communitities.Where(a => a.BuiltYear >= communitityList.StartDateTime.Year).ToArray();

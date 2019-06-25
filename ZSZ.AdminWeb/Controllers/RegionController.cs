@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ZSZ.AdminWeb.App_Start;
 using ZSZ.AdminWeb.Models;
 using ZSZ.IServices;
 using ZSZ.Web.Common;
@@ -13,12 +14,18 @@ namespace ZSZ.AdminWeb.Controllers
     {
         public IRegion RegionService { get; set; }
         public ICity CityService { get; set; }
-        public ActionResult List(long cityId = 1, int pageIndex = 1)
+        public ActionResult List(int pageIndex = 1)
         {
-            var regions = RegionService.GetAll(cityId);
+            long? cityId = AdminHelper.GetCityId(this.HttpContext);
+            if (cityId == null)
+            {
+                return View("~/Views/Shared/Error.cshtml", (object)"总部人员无法管理区域");
+            }
+
+            var regions = RegionService.GetAll(cityId.Value);
             RegionListViewModel regionListView = new RegionListViewModel();
             regionListView.Regions = regions;
-            regionListView.CityId = cityId;
+            regionListView.CityId = cityId.Value;
             regionListView.PageIndex = pageIndex;
             regionListView.PageCount = 10;
             regionListView.TotalCount = regions.LongCount();

@@ -38,6 +38,18 @@ namespace ZSZ.Services
             }
         }
 
+        public CommunitityDTO[] GetByCityId(long cityId)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<RegionEntity> regionService = new CommonService<RegionEntity>(ctx);
+                var regions = regionService.GetAll().Where(r => r.CityId == cityId);
+                CommonService<CommunitityEntity> communitityService = new CommonService<CommunitityEntity>(ctx);
+                var communitities = communitityService.GetAll().Where(c => regions.Select(r => r.Id).Contains(c.RegionId));
+                return communitities.ToList().Select(c => ToDTO(c)).ToArray();
+            }
+        }
+
         public void UpdateCommunitity(long id, string name, long regionId, string location, string traffic, int? buildYear)
         {
             using (ZSZDbContext ctx = new ZSZDbContext())

@@ -28,6 +28,13 @@ namespace ZSZ.IServices
         CommunitityDTO[] GetByRegionId(long regionId);
 
         /// <summary>
+        /// 获取城市内的所有小区
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        CommunitityDTO[] GetByCityId(long cityId);
+
+        /// <summary>
         /// 更新小区信息
         /// </summary>
         /// <param name="id"></param>

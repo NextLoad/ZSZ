@@ -32,6 +32,10 @@ namespace ZSZ.AdminWeb.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            if (AdminHelper.GetUserId(this.HttpContext) != null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             return View();
         }
 
@@ -56,7 +60,7 @@ namespace ZSZ.AdminWeb.Controllers
             {
                 var adminUser = AdminUserService.GetByPhoneNum(loginModel.PhoneNum);
                 AdminHelper.SetUserId(this.HttpContext, adminUser.Id);
-                AdminHelper.SetCityId(this.HttpContext,adminUser.CityId);
+                AdminHelper.SetCityId(this.HttpContext, adminUser.CityId);
                 return Json(new AjaxResult { Status = "ok" });
             }
 
