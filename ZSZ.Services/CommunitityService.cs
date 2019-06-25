@@ -32,8 +32,42 @@ namespace ZSZ.Services
         {
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
-                var communitities = ctx.Communitities.Where(c => c.RegionId == regionId).Include(c => c.RegionEntity);
+                CommonService<CommunitityEntity> communitityService = new CommonService<CommunitityEntity>(ctx);
+                var communitities = communitityService.GetAll().Where(c => c.RegionId == regionId).Include(c => c.RegionEntity);
                 return communitities.ToList().Select(c => ToDTO(c)).ToArray();
+            }
+        }
+
+        public void UpdateCommunitity(long id, string name, long regionId, string location, string traffic, int? buildYear)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<CommunitityEntity> communtityService = new CommonService<CommunitityEntity>(ctx);
+                var communitity = communtityService.GetById(id);
+                communitity.Name = name;
+                communitity.RegionId = regionId;
+                communitity.Location = location;
+                communitity.Traffic = traffic;
+                communitity.BuiltYear = buildYear;
+                ctx.SaveChanges();
+            }
+        }
+
+        public void MarkDeleted(long id)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<CommunitityEntity> communtityService = new CommonService<CommunitityEntity>(ctx);
+                communtityService.MarkDeleted(id);
+            }
+        }
+
+        public CommunitityDTO GetById(long id)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<CommunitityEntity> communtityService = new CommonService<CommunitityEntity>(ctx);
+                return ToDTO(communtityService.GetById(id));
             }
         }
 

@@ -17,5 +17,16 @@ namespace ZSZ.AdminWeb.App_Start
         {
             httpContextBase.Session["userId"] = userId;
         }
+
+        public static long? GetCityId(HttpContextBase httpContextBase)
+        {
+            long? cityId = (long?)httpContextBase.Session["cityId"];
+            return cityId;
+        }
+
+        public static void SetCityId(HttpContextBase httpContextBase, long? cityId)
+        {
+            httpContextBase.Session["cityId"] = cityId;
+        }
     }
 }

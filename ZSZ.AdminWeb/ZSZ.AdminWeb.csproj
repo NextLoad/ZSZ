@@ -1234,6 +1234,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminUserController.cs" />
     <Compile Include="Controllers\CityController.cs" />
+    <Compile Include="Controllers\CommunitityController.cs" />
     <Compile Include="Controllers\HouseController.cs" />
     <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\PermissionController.cs" />
@@ -1258,6 +1259,11 @@
     <Compile Include="Models\AdminUserConditionModel.cs" />
     <Compile Include="Models\AdminUserEditGetViewModel.cs" />
     <Compile Include="Models\AdminUserEditModel.cs" />
+    <Compile Include="Models\CommunitityAddNewModel.cs" />
+    <Compile Include="Models\CommunitityEditModel.cs" />
+    <Compile Include="Models\CommunitityGetViewModel.cs" />
+    <Compile Include="Models\CommunitityListModel.cs" />
+    <Compile Include="Models\CommunitityListViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PermissionAddModel.cs" />
     <Compile Include="Models\PermissionEditModel.cs" />
@@ -1343,6 +1349,10 @@
     <Content Include="Views\Region\List.cshtml" />
     <Content Include="Views\Region\Add.cshtml" />
     <Content Include="Views\Region\Edit.cshtml" />
+    <Content Include="Views\Communitity\List.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Communitity\Add.cshtml" />
+    <Content Include="Views\Communitity\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1367,10 +1377,6 @@
     <ProjectReference Include="..\ZSZ.IServices\ZSZ.IServices.csproj">
       <Project>{23f0c07f-60c7-4885-9ed0-b9eb403bf396}</Project>
       <Name>ZSZ.IServices</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ZSZ.Services\ZSZ.Services.csproj">
-      <Project>{11b1e032-75bd-4e47-8de6-6be1245b81e5}</Project>
-      <Name>ZSZ.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\ZSZ.Web.Common\ZSZ.Web.Common.csproj">
       <Project>{29fed61a-f573-446f-b4f5-9302157c4ae6}</Project>

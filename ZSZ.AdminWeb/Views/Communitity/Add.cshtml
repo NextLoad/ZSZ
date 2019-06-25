@@ -1,0 +1,79 @@
+﻿@using ZSZ.DTO
+@model ZSZ.DTO.RegionDTO[]
+
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="" method="post" id="formAdd">
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>小区名称：</label>
+        <div class="formControls col-5">
+            <input type="text" name="name" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="小区名称不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>位置：</label>
+        <div class="formControls col-5">
+            <input type="text" name="location" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="位置不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>交通：</label>
+        <div class="formControls col-5">
+            <input type="text" name="traffic" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="交通不能为空" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3">建造年份：</label>
+        <div class="col-5">
+            <input type="text" name="builtyear" class="input-text" value="" placeholder="" datatype="n0-4" />
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-3"><span class="c-red">*</span>所属区域</label>
+        <div class="formControls col-5">
+            @Html.DropDownList("regionId", new SelectList(Model, nameof(RegionDTO.Id), nameof(RegionDTO.Name)))
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <div class="row cl">
+        <input type="button" value="添加" id="btnAddCommunitity" />
+    </div>
+</form>
+@section FooterScript
+{
+    <script type="text/javascript">
+        $(function() {
+            var formValid = $("#formAdd").Validform({ tiptype: 2 });
+            $("#btnAddCommunitity").click(function () {
+                if (formValid.check(false)) {
+                    var formData = $("#formAdd").serializeArray();
+                    $.ajax({
+                        url: "/Communitity/Add",
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        success: function(msg) {
+                            if (msg.status == "ok") {
+                                layer.msg('添加成功!', { icon: 1, time: 1000 });
+                                window.parent.location.reload();
+                            } else {
+                                alert("error:" + msg.msg);
+                            }
+                        },
+                        error: function() {
+                            alert("请求失败！");
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}
+

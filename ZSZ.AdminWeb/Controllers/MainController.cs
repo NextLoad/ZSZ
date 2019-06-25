@@ -56,6 +56,7 @@ namespace ZSZ.AdminWeb.Controllers
             {
                 var adminUser = AdminUserService.GetByPhoneNum(loginModel.PhoneNum);
                 AdminHelper.SetUserId(this.HttpContext, adminUser.Id);
+                AdminHelper.SetCityId(this.HttpContext,adminUser.CityId);
                 return Json(new AjaxResult { Status = "ok" });
             }
 
