@@ -1361,6 +1361,7 @@
     <Content Include="Views\House\List.cshtml" />
     <Content Include="Views\House\Add.cshtml" />
     <Content Include="Views\House\Edit.cshtml" />
+    <Content Include="Views\House\HousePicList.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

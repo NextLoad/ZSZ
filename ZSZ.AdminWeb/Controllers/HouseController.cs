@@ -14,6 +14,9 @@ namespace ZSZ.AdminWeb.Controllers
     public class HouseController : Controller
     {
         public IHouse HouseService { get; set; }
+
+        public IHousePic HousePicService { get; set; }
+
         public IdName IdNameService { get; set; }
 
         public IRegion RegionService { get; set; }
@@ -157,6 +160,12 @@ namespace ZSZ.AdminWeb.Controllers
                 HouseService.MarkDeleted(id);
             }
             return Json(new AjaxResult { Status = "ok" });
+        }
+
+        public ActionResult HousePicList(long houseId)
+        {
+            var housePics = HousePicService.GetPics(houseId);
+            return View(housePics);
         }
 
     }
