@@ -36,6 +36,8 @@ namespace ZSZ.Services
             houseDto.TotalFloatCount = house.TotalFloatCount;
             houseDto.TypeId = house.TypeId;
             houseDto.TypeName = house.Type.Name;
+            houseDto.RegionId = house.CommunitityEntity.RegionId;
+            houseDto.RegionName = house.CommunitityEntity.RegionEntity.Name;
             houseDto.Id = house.Id;
             houseDto.CreateDateTime = house.CreateDateTime;
             return houseDto;
@@ -100,8 +102,8 @@ namespace ZSZ.Services
             house.TotalFloatCount = houseDto.TotalFloatCount;
             house.TypeId = houseDto.TypeId;
             //house.TypeName = houseDto.Type.Name;
-            house.Id = houseDto.Id;
-            house.CreateDateTime = houseDto.CreateDateTime;
+            //house.Id = houseDto.Id;
+            //house.CreateDateTime = houseDto.CreateDateTime;
             return house;
         }
 

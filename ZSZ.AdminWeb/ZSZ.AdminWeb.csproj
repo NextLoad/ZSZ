@@ -1264,6 +1264,11 @@
     <Compile Include="Models\CommunitityGetViewModel.cs" />
     <Compile Include="Models\CommunitityListModel.cs" />
     <Compile Include="Models\CommunitityListViewModel.cs" />
+    <Compile Include="Models\HouseAddNewModel.cs" />
+    <Compile Include="Models\HouseAddViewModel.cs" />
+    <Compile Include="Models\HouseEditModel.cs" />
+    <Compile Include="Models\HouseEditViewModel.cs" />
+    <Compile Include="Models\HouseListViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PermissionAddModel.cs" />
     <Compile Include="Models\PermissionEditModel.cs" />
@@ -1353,6 +1358,9 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Communitity\Add.cshtml" />
     <Content Include="Views\Communitity\Edit.cshtml" />
+    <Content Include="Views\House\List.cshtml" />
+    <Content Include="Views\House\Add.cshtml" />
+    <Content Include="Views\House\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1363,7 +1371,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
-    <Folder Include="Views\House\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZSZ.Common\ZSZ.Common.csproj">

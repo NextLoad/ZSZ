@@ -1,0 +1,149 @@
+﻿@model HouseAddViewModel
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form action="" method="post" id="formAdd">
+    <div class="row cl">
+        <label class="form-label col-1"><span class="c-red">*</span>区域：</label>
+        <div class="formControls col-3">
+            @Html.DropDownList("regionId", new SelectList(Model.Regions, nameof(RegionDTO.Id), nameof(RegionDTO.Name)))
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>小区：</label>
+        <div class="formControls col-3">
+            <select id="communityId" name="communityId"></select>
+            @*@Html.DropDownList("communities", new SelectList(Model.Communities, nameof(CommunitityDTO.Id), nameof(CommunitityDTO.Name)))*@
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>房型：</label>
+        <div class="formControls col-3">
+            @Html.DropDownList("roomTypeId", new SelectList(Model.RoomTypes, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-1"><span class="c-red">*</span>地址：</label>
+        <div class="formControls col-7">
+            <input type="text" name="address" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="地址不能为空" />
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>月租金：</label>
+        <div class="formControls col-3">
+            <input type="text" name="monthRent" class="input-text" value="" placeholder="" datatype="*1-4" nullmsg="月租金不能为空" />元
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-1"><span class="c-red">*</span>状态：</label>
+        <div class="formControls col-3">
+            @Html.DropDownList("statusId", new SelectList(Model.Status, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>面积：</label>
+        <div class="formControls col-3">
+            <input type="text" name="area" class="input-text" value="" placeholder="" datatype="n1-4" nullmsg="面积不能为空" />平米
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>装修：</label>
+        <div class="formControls col-3">
+            @Html.DropDownList("decorateStatusId", new SelectList(Model.DecorateStatus, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-1"><span class="c-red">*</span>楼层：</label>
+        <div class="formControls col-3">
+            <input type="text" name="floorIndex" class="input-text" value="" placeholder="层数" datatype="n1-2" nullmsg="楼层不能为空" />
+            <input type="text" name="totalFloatCount" class="input-text" value="" placeholder="总层" datatype="n1-2" nullmsg="楼层不能为空" />
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>朝向：</label>
+        <div class="formControls col-3">
+            <input type="text" name="direction" class="input-text" value="" placeholder="" datatype="*1-4" nullmsg="朝向不能为空" />
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>可看房时间：</label>
+        <div class="formControls col-3">
+            @*<input type="text" name="lookableDateTime" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="可看房时间不能为空" />*@
+            <input type="text" name="lookableDateTime" onfocus="WdatePicker({ dateFmt: 'yyyy-M-d' })" id="" class="input-text Wdate" style="width: 120px;">
+
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-1"><span class="c-red">*</span>入住时间：</label>
+        <div class="formControls col-3">
+            @*<input type="text" name="checkInDateTime" class="input-text" value="" placeholder="可看房时间" datatype="*2-16" nullmsg="可看房时间不能为空" />*@
+            <input type="text" name="checkInDateTime" onfocus="WdatePicker({ dateFmt: 'yyyy-M-d' })" id="" class="input-text Wdate" style="width: 120px;">
+
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>业主姓名：</label>
+        <div class="formControls col-3">
+            <input type="text" name="ownerName" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="业主姓名不能为空" />
+        </div>
+        <label class="form-label col-1"><span class="c-red">*</span>业主电话：</label>
+        <div class="formControls col-3">
+            <input type="text" name="ownerPhoneNum" class="input-text" value="" placeholder="" datatype="*2-16" nullmsg="业主电话不能为空" />
+        </div>
+    </div>
+    <div class="row cl">
+        <label class="form-label col-1"><span class="c-red">*</span>出租类型：</label>
+        <div class="formControls col-3">
+            @Html.DropDownList("typeId", new SelectList(Model.Types, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
+        </div>
+        <label class="form-label col-1">房源描述：</label>
+        <div class="formControls col-8">
+            <textarea name="description"></textarea>
+        </div>
+
+    </div>
+    <div class="row cl">
+        <input type="button" value="添加" id="btnAddHouse" />
+    </div>
+</form>
+@section FooterScript
+{
+    <script type="text/javascript">
+        $(function() {
+            var formValid = $("#formAdd").Validform({ tiptype: 2 });
+            $("#btnAddHouse").click(function() {
+                if (formValid.check(false)) {
+                    var formData = $("#formAdd").serializeArray();
+                    $.ajax({
+                        url: "/House/Add",
+                        type: "post",
+                        data: formData,
+                        dataType: "json",
+                        success: function(msg) {
+                            if (msg.status == "ok") {
+                                layer.msg('添加成功!', { icon: 1, time: 1000 });
+                                window.parent.location.reload();
+                            } else {
+                                alert("error:" + msg.msg);
+                            }
+                        },
+                        error: function() {
+                            alert("请求失败！");
+                        }
+                    });
+                }
+            });
+
+            $("#regionId").change(function() {
+                var regionId = $(this).val();
+                $.ajax({
+                    url: "/House/GetCommunitities",
+                    type: "post",
+                    data: { "regionId": regionId },
+                    dataType: "json",
+                    success: loadCommunitities,
+                    error:function() {
+                        alert("网络请求失败");
+                    }
+                });
+            });
+            $("#regionId").change();
+        });
+
+        var loadCommunitities = function(msg) {
+            if (msg.status == "ok") {
+                for (var i = 0; i < msg.data.length; i++) {
+                    $("#communityId")
+                        .append("<option value='" + msg.data[i].id + "'>" + msg.data[i].name + "</option>");
+                }
+            }
+        }
+    </script>
+}
+

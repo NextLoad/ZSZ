@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZSZ.DTO
 {
-    public class CommunitityDTO:BaseDTO
+    public class CommunitityDTO : BaseDTO
     {
         public string Name { get; set; }
         public long RegionId { get; set; }
