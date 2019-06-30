@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZSZ.Common;
 using ZSZ.DTO;
 using ZSZ.IServices;
 using ZSZ.Services.Entities;
@@ -36,8 +37,9 @@ namespace ZSZ.Services
         {
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
+
                 CommonService<CityEntity> cs = new CommonService<CityEntity>(ctx);
-                return cs.GetAll().AsNoTracking().ToList().Select(c => ToDTO(c)).ToArray();
+                return cs.GetAll().AsNoTracking().ToList().Select(c => GenericToDTO.ToDTO<CityEntity, CityDTO>(c)).ToArray();
             }
         }
 
@@ -59,7 +61,7 @@ namespace ZSZ.Services
             }
         }
 
-        public void UpdateCity(long id,string name)
+        public void UpdateCity(long id, string name)
         {
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
