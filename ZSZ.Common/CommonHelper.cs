@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -44,6 +45,19 @@ namespace ZSZ.Common
         {
             MD5 md5 = MD5.Create();
             byte[] md5Bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(str));
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < md5Bytes.Length; i++)
+            {
+                sb.Append(md5Bytes[i].ToString("x2"));
+            }
+
+            return sb.ToString();
+        }
+
+        public static string CalcMD5(Stream stream)
+        {
+            MD5 md5 = MD5.Create();
+            byte[] md5Bytes = md5.ComputeHash(stream);
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < md5Bytes.Length; i++)
             {

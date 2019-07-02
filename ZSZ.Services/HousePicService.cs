@@ -38,8 +38,8 @@ namespace ZSZ.Services
             {
                 HousePicEntity housePicAdd = new HousePicEntity();
                 housePicAdd.HouseId = housePic.HouseId;
-                housePic.ThumbUrl = housePic.ThumbUrl;
-                housePic.Url = housePic.Url;
+                housePicAdd.ThumbUrl = housePic.ThumbUrl;
+                housePicAdd.Url = housePic.Url;
                 ctx.HousePics.Add(housePicAdd);
                 ctx.SaveChanges();
                 return housePicAdd.Id;

@@ -13,6 +13,10 @@ namespace ZSZ.AdminWeb.Filters
         public void OnException(ExceptionContext filterContext)
         {
             log.Error("后台未经处理的异常", filterContext.Exception);
+            //ViewResult result = new ViewResult();
+            //result.View = new RazorView(filterContext.Controller.ControllerContext, "~/Views/Shared/Error.cshtml", "", false, null);
+            //filterContext.Result = result;
+            //filterContext.ExceptionHandled = true;
         }
     }
 }

@@ -7,6 +7,7 @@
 
 @section HeaderScript
 {
+    <link href="~/lib/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css">
     <style type="text/css">
         #pageBar li {
             float: left;
@@ -16,20 +17,31 @@
 }
 <nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 房源图片管理 <span class="c-gray en">&gt;</span> 房源图片列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
-    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="housePic_add('添加房源图片', '/House/AddPic', '800', '500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加房源图片</a></span> <span class="r">共有数据：<strong>@Model.Length</strong> 条</span> </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="datadel()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a href="javascript:;" onclick="housePic_add('添加房源图片', '/House/HousePicAdd?houseId=@ViewBag.HouseId', '800', '500')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加房源图片</a></span> <span class="r">共有数据：<strong>@Model.Length</strong> 条</span> </div>
     <form id="formList">
-        @foreach (var housePic in Model)
-        {
-            <input type="checkbox" name="ids" /><br />
-            <img src="@housePic.ThumbUrl" />
-        }
+        <div class="portfolio-content">
+            <ul class="cl portfolio-area">
+                @foreach (var housePic in Model)
+                {
+                    <li class="item">
+                        <div class="portfoliobox">
+                            <input class="checkbox" name="seletcedIds" type="checkbox" value="@housePic.Id">
+                            <div class="picbox"><a href="@housePic.Url" data-lightbox="gallery" data-title="客厅1"><img src="@housePic.ThumbUrl"></a></div>
+                            <div class="textbox">客厅 </div>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
     </form>
 </div>
 
 @section FooterScript
 {
+    <script type="text/javascript" src="~/lib/lightbox2/2.8.1/js/lightbox-plus-jquery.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            $.Huihover(".portfolio-area li");
         });
 
         function datadel() {
@@ -37,7 +49,7 @@
                 function (index) {
                     var formData = $("#formList").serializeArray();
                     $.ajax({
-                        url: "/House/BatchDelete",
+                        url: "/House/HousePicBatchDelete",
                         type: "post",
                         data: formData,
                         dataType: "json",
@@ -64,7 +76,7 @@
     h		弹出层高度（缺省调默认值）
 */
         /*管理员-增加*/
-        function house_add(title, url, w, h) {
+        function housePic_add(title, url, w, h) {
             layer_show(title, url, w, h);
         }
 
