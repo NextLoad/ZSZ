@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="headertwo clearfloat" id="header">
+    <a href="javascript:history.go(-1)" class="fl box-s"><i class="iconfont icon-arrow-l fl"></i></a>
+    <p class="fl">登录</p>
+</div>
+
+<div class="sign clearfloat" id="main">
+    <ul>
+        <li class="clearfloat">
+            <i class="iconfont icon-phone fl"></i>
+            <input type="text" id="phoneNum" name="phoneNum" value="" placeholder="请输入手机号" class="fl phone" />
+        </li>
+        <li class="clearfloat">
+            <i class="iconfont icon-lock fl"></i>
+            <input type="text" id="password" name="password" value="" placeholder="请输入密码" class="fl phone" />
+        </li>
+    </ul>
+    <a href="javascript:void(0);" id="login" class="pay-btn clearfloat">
+        登录
+    </a>
+    <div class="bottom clearfloat">
+        <p class="fl">
+            还不是会员？
+            <a href="~/Home/Register">立即注册</a>
+        </p>
+        <a href="~/Home/ForgetPassword" class="fr">忘记密码？</a>
+    </div>
+</div>
+@section FooterScript
+{
+    <script type="text/javascript">
+        $(function() {
+            $("#login").click(function() {
+                $.ajax({
+                    url: '/Home/Login',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { phoneNum: $("#phoneNum").val(), password: $("#password").val() },
+                    success:function(msg) {
+                        if (msg.status == "fail") {
+                            alert(msg.msg);
+                        }
+                    },
+                    error:function() {
+                        alert("网络请求失败");
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

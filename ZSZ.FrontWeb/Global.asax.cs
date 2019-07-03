@@ -21,6 +21,8 @@ namespace ZSZ.FrontWeb
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             System.Web.Mvc.ModelBinders.Binders.Add(typeof(string), new TrimToDBCModelBinder());
 
+            //注册Filters
+            FilterConfig.RegisterFilters(GlobalFilters.Filters);
 
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();

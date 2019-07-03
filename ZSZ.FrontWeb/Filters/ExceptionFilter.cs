@@ -7,7 +7,7 @@ using log4net;
 
 namespace ZSZ.FrontWeb.Filters
 {
-    public class ExceptionFilter
+    public class ExceptionFilter : IExceptionFilter
     {
         private ILog log = LogManager.GetLogger(typeof(ExceptionFilter));
         public void OnException(ExceptionContext filterContext)
