@@ -16,7 +16,7 @@ namespace ZSZ.AdminWeb.Controllers
         public ICommunitity CommunitityService { get; set; }
         public IRegion RegionService { get; set; }
 
-        [CheckPermission("Communitity.list")]
+        //[CheckPermission("Communitity.list")]
         public ActionResult List(CommunitityListModel communitityList)
         {
             //var communitities = CommunitityService.GetByRegionId(communitityList.RegionId);
