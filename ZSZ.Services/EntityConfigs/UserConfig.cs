@@ -16,7 +16,7 @@ namespace ZSZ.Services.EntityConfigs
             this.Property(u => u.PasswordHash).IsRequired().HasMaxLength(100);
             this.Property(u => u.PasswordSalt).IsRequired().HasMaxLength(20);
             this.Property(u => u.PhoneNum).IsRequired().HasMaxLength(20).IsUnicode(false);
-            this.HasRequired(u => u.CityEntity)
+            this.HasOptional(u => u.CityEntity)
                 .WithMany().HasForeignKey(u => u.CityId).WillCascadeOnDelete(false);
         }
     }

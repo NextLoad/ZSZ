@@ -31,7 +31,7 @@ namespace ZSZ.FrontWeb.Controllers
         {
             if (UserService.CheckLogin(login.PhoneNum, login.Password))
             {
-                return RedirectToAction(nameof(Index));
+                return Json(new AjaxResult { Status = "ok" });
             }
 
             return Json(new AjaxResult { Status = "fail", Msg = "用户名或密码错误！" });
@@ -64,7 +64,7 @@ namespace ZSZ.FrontWeb.Controllers
                 });
             }
 
-            if (register.SmsCode != (int) TempData["smsCode"])
+            if (register.SmsCode != (int)TempData["smsCode"])
             {
                 return Json(new AjaxResult
                 {

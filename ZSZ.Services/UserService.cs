@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
@@ -34,9 +35,22 @@ namespace ZSZ.Services
             }
         }
 
-        public long UpdateUser(long id, string phoneNum, string password, long? cityId)
+        public long UpdateUser(string phoneNum, string password, long? cityId)
         {
-            throw new NotImplementedException();
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<UserEntity> userService = new CommonService<UserEntity>(ctx);
+                UserEntity user = userService.GetAll().Include(u => u.CityEntity).SingleOrDefault(u => u.PhoneNum == phoneNum);
+                if (user == null)
+                {
+                    throw new Exception("用户不存在" + phoneNum);
+                }
+                user.PasswordSalt = WebCommonHelper.CreateVerifyCode(4);
+                user.PasswordHash = Common.CommonHelper.CalcMD5(user.PasswordSalt + password);
+                user.CityId = cityId;
+                ctx.SaveChanges();
+                return user.Id;
+            }
         }
 
         public void SetUserCityId(long id, long cityId)
@@ -60,7 +74,15 @@ namespace ZSZ.Services
             UserDTO userDto = new UserDTO();
             userDto.PhoneNum = user.PhoneNum;
             userDto.CityId = user.CityId;
-            userDto.CityName = user.CityEntity.Name;
+            if (user.CityEntity == null)
+            {
+                userDto.CityName = string.Empty;
+            }
+            else
+            {
+                userDto.CityName = user.CityEntity.Name;
+            }
+
             userDto.LastLoginErrorDateTime = user.LastLoginErrorDateTime;
             userDto.LoginErrorTimes = user.LoginErrorTimes;
             userDto.PasswordHash = user.PasswordHash;
@@ -92,13 +114,8 @@ namespace ZSZ.Services
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 CommonService<UserEntity> userService = new CommonService<UserEntity>(ctx);
-                UserEntity user = userService.GetAll().SingleOrDefault(u => u.PhoneNum == phoneNum);
-                if (user == null)
-                {
-                    throw new ArgumentException("手机号不存在" + phoneNum);
-                }
-
-                return ToDTO(user);
+                UserEntity user = userService.GetAll().Include(u => u.CityEntity).SingleOrDefault(u => u.PhoneNum == phoneNum);
+                return user == null ? null : ToDTO(user);
             }
         }
 
@@ -132,7 +149,7 @@ namespace ZSZ.Services
                 var user = userService.GetById(id);
                 if (user == null)
                 {
-                    throw new ArgumentException("用户不存在"+id);
+                    throw new ArgumentException("用户不存在" + id);
                 }
                 user.LastLoginErrorDateTime = DateTime.Now;
                 user.LoginErrorTimes++;
@@ -151,7 +168,7 @@ namespace ZSZ.Services
                 {
                     throw new ArgumentException("用户不存在" + id);
                 }
-                
+
                 user.LoginErrorTimes = 0;
                 user.LastLoginErrorDateTime = null;
                 ctx.SaveChanges();

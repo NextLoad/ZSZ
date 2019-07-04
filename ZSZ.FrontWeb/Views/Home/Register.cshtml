@@ -17,21 +17,21 @@
         </li>
         <li class="clearfloat">
             <p class="tit fl">验证码</p>
-            <input type="text" id="" value="" class="shuru shurutwo fl" placeholder="请输入短信验证码" />
+            <input type="text" id="smsCode" value="" class="shuru shurutwo fl" placeholder="请输入短信验证码" />
             <a href="#loginmodalt" id="modaltrigger">
                 <input type="button" id="" value="获取短信验证码" class="btn fr" />
             </a>
         </li>
         <li class="clearfloat">
             <p class="tit fl">密码</p>
-            <input type="text" id="" value="" class="shuru fl" placeholder="请设置密码" />
+            <input type="password" id="password" value="" class="shuru fl" placeholder="请设置密码" />
         </li>
         <li class="clearfloat">
             <p class="tit fl">确认密码</p>
-            <input type="text" id="" value="" class="shuru fl" placeholder="请再次输入密码" />
+            <input type="password" id="password2" value="" class="shuru fl" placeholder="请再次输入密码" />
         </li>
     </ul>
-    <a href="p-center.html" class="pay-btn clearfloat">
+    <a href="javascript:void(0);" id="registerLink" class="pay-btn clearfloat">
         注册
     </a>
     <div class="bottom clearfloat">
@@ -67,7 +67,7 @@
                 $("#imgVerifyCode").attr("src", "/Home/GetVerifyCode?" + Math.random());
             });
 
-            $("#btnOK").click(function() {
+            $("#btnOK").click(function () {
                 $.ajax({
                     url: "/Home/SendSmsCode",
                     type: "post",
@@ -76,10 +76,35 @@
                     success:function(msg) {
                         if (msg.status != "ok") {
                             alert(msg.msg);
-                        }
+                        } 
+
                     },
                     error:function() {
                         alert("网络请求失败！");
+                    }
+                });
+            });
+
+            $("#registerLink").click(function () {
+                $.ajax({
+                    url: "/Home/Register",
+                    type: "post",
+                    dataType: "json",
+                    data: {
+                        PhoneNum: $('#phoneNum').val(),
+                        SmsCode: $('#smsCode').val(),
+                        Password: $('#password').val(),
+                        Password2: $('#password2').val()
+                    },
+                    success:function(msg) {
+                        if (msg.status != "ok") {
+                            alert(msg.msg);
+                        } else {
+                            window.location = "/Home/Index";
+                        }
+                    },
+                    error:function() {
+                        alert("网络请求失败");
                     }
                 });
             });
