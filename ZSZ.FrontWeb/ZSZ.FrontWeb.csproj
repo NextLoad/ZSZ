@@ -182,8 +182,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\FrontHelper.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HouseController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Filters\ExceptionFilter.cs" />
     <Compile Include="Global.asax.cs">
@@ -213,6 +215,8 @@
     <Content Include="Views\User\ForgetPassword3.cshtml" />
     <Content Include="Views\User\ForgetPassword2.cshtml" />
     <Content Include="Views\User\ForgetPassword4.cshtml" />
+    <Content Include="Views\House\Index.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

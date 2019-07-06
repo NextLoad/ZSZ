@@ -13,7 +13,8 @@ namespace ZSZ.DTO
         /// </summary>
         public long RegionId { get; set; }
         public string RegionName { get; set; }
-
+        public int? BuiltYear { get; set; }
+        public string Traffic { get; set; }
         /// <summary>
         /// 小区ID
         /// </summary>

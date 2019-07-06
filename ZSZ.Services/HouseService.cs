@@ -17,6 +17,7 @@ namespace ZSZ.Services
             HouseDTO houseDto = new HouseDTO();
             houseDto.Address = house.Address;
             houseDto.Area = house.Area;
+            houseDto.BuiltYear = house.CommunitityEntity.BuiltYear;
             houseDto.CheckInDateTime = house.CheckInDateTime;
             houseDto.CommunityId = house.CommunityId;
             houseDto.CommunityName = house.CommunitityEntity.Name;
@@ -34,6 +35,7 @@ namespace ZSZ.Services
             houseDto.StatusId = house.StatusId;
             houseDto.StatusName = house.Status.Name;
             houseDto.TotalFloatCount = house.TotalFloatCount;
+            houseDto.Traffic = house.CommunitityEntity.Traffic;
             houseDto.TypeId = house.TypeId;
             houseDto.TypeName = house.Type.Name;
             houseDto.RegionId = house.CommunitityEntity.RegionId;

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using CaptchaGen;
+using ZSZ.FrontWeb.App_Start;
 using ZSZ.FrontWeb.Models;
 using ZSZ.IServices;
 using ZSZ.Web.Common;
@@ -29,8 +30,13 @@ namespace ZSZ.FrontWeb.Controllers
         [HttpPost]
         public ActionResult Login(LoginModel login)
         {
+            //判断用户是否成功登陆
             if (UserService.CheckLogin(login.PhoneNum, login.Password))
             {
+                //登陆成功后，将用户信息存入session中
+                var user = UserService.GetByPhoneNum(login.PhoneNum);
+                FrontHelper.SetUserId(this.HttpContext, user.Id);
+                FrontHelper.SetCityId(this.HttpContext, user.CityId);
                 return Json(new AjaxResult { Status = "ok" });
             }
 
@@ -55,6 +61,7 @@ namespace ZSZ.FrontWeb.Controllers
                 });
             }
 
+            //防止在发送验证码之后 用户修改了手机号码
             if (register.PhoneNum != (string)TempData["phoneNum"])
             {
                 return Json(new AjaxResult
