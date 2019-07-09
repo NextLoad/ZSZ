@@ -61,6 +61,13 @@ namespace ZSZ.IServices
         long GetTotalCount(long cityId, string status);
 
         /// <summary>
+        /// 获取所有预约订单
+        /// </summary>
+        /// <returns></returns>
+        HouseAppointmentDTO[] GetAll();
+
+
+        /// <summary>
         /// 分页获取预约信息
         /// </summary>
         /// <param name="cityId"></param>

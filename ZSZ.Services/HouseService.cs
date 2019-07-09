@@ -21,6 +21,7 @@ namespace ZSZ.Services
             houseDto.CheckInDateTime = house.CheckInDateTime;
             houseDto.CommunityId = house.CommunityId;
             houseDto.CommunityName = house.CommunitityEntity.Name;
+            houseDto.CommunityLocation = house.CommunitityEntity.Location;
             houseDto.DecorateStatusId = house.DecorateStatusId;
             houseDto.DecorateStatusName = house.DecorateStatus.Name;
             houseDto.Description = house.Description;
@@ -58,7 +59,60 @@ namespace ZSZ.Services
             using (ZSZDbContext ctx = new ZSZDbContext())
             {
                 CommonService<HouseEntity> service = new CommonService<HouseEntity>(ctx);
-                return ToDTO(service.GetById(id));
+                var house = service.GetById(id);
+                return house == null ? null : ToDTO(house);
+            }
+        }
+
+        public HouseDTO[] Search(HouseSearchOptions houseSearchOptions)
+        {
+            using (ZSZDbContext ctx = new ZSZDbContext())
+            {
+                CommonService<HouseEntity> service = new CommonService<HouseEntity>(ctx);
+                var houses = service.GetAll().Where(h => h.TypeId == houseSearchOptions.TypeId && h.CommunitityEntity.RegionEntity.CityId == houseSearchOptions.CityId);
+                if (houseSearchOptions.RegionId != null)
+                {
+                    houses = houses.Where(h => h.CommunitityEntity.RegionId == houseSearchOptions.RegionId);
+                }
+
+                if (houseSearchOptions.MonthRentStart != null)
+                {
+                    houses = houses.Where(h => h.MonthRent >= houseSearchOptions.MonthRentStart);
+                }
+                if (houseSearchOptions.MonthRentEnd != null)
+                {
+                    houses = houses.Where(h => h.MonthRent <= houseSearchOptions.MonthRentEnd);
+                }
+
+                if (!string.IsNullOrEmpty(houseSearchOptions.KeyWords))
+                {
+                    houses = houses.Where(h => h.Address.Contains(houseSearchOptions.KeyWords)
+                                               || h.Description.Contains(houseSearchOptions.KeyWords)
+                                               || h.CommunitityEntity.Name.Contains(houseSearchOptions.KeyWords)
+                                               || h.CommunitityEntity.Location.Contains(houseSearchOptions.KeyWords)
+                                               || h.CommunitityEntity.Traffic.Contains(houseSearchOptions.KeyWords));
+                }
+
+                switch (houseSearchOptions.OrderByType)
+                {
+                    case HouseSearchOrderByType.AreaAsc:
+                        houses = houses.OrderBy(h => h.Area);
+                        break;
+                    case HouseSearchOrderByType.AreaDesc:
+                        houses = houses.OrderByDescending(h => h.Area);
+                        break;
+                    case HouseSearchOrderByType.MonthRentAsc:
+                        houses = houses.OrderBy(h => h.MonthRent);
+                        break;
+                    case HouseSearchOrderByType.MonthRentDesc:
+                        houses = houses.OrderByDescending(h => h.MonthRent);
+                        break;
+                }
+
+                houses.Include(h => h.AttachmentEntities).Include(h => h.CommunitityEntity)
+                    .Include("CommunitityEntity.RegionEntity").Include("CommunitityEntity.RegionEntity.CityEntity")
+                    .Include(h => h.Status).Include(h => h.DecorateStatus).Include(h => h.RoomType).Include(h => h.Type);
+                return houses.ToList().Select(h => ToDTO(h)).ToArray();
             }
         }
 

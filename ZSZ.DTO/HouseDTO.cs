@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZSZ.DTO
 {
+    [Serializable]
     public class HouseDTO : BaseDTO
     {
         /// <summary>
@@ -20,6 +21,8 @@ namespace ZSZ.DTO
         /// </summary>
         public long CommunityId { get; set; }
         public string CommunityName { get; set; }
+
+        public string CommunityLocation { get; set; }
         /// <summary>
         /// 户型类型ID
         /// </summary>

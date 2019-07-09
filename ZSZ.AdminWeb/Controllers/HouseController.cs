@@ -68,6 +68,7 @@ namespace ZSZ.AdminWeb.Controllers
             return View(houseAddView);
         }
 
+        [ValidateInput(false)]
         [HttpPost]
         public ActionResult Add(HouseAddNewModel houseAdd)
         {

@@ -23,6 +23,13 @@ namespace ZSZ.IServices
         HouseDTO GetById(long id);
 
         /// <summary>
+        /// 筛选房屋
+        /// </summary>
+        /// <param name="houseSearchOptions"></param>
+        /// <returns></returns>
+        HouseDTO[] Search(HouseSearchOptions houseSearchOptions);
+
+        /// <summary>
         /// 获取某个城市下房源类型房屋总量
         /// </summary>
         /// <returns></returns>

@@ -16,10 +16,36 @@ namespace ZSZ.FrontWeb.Controllers
     {
         private log4net.ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
         public IUser UserService { get; set; }
+
+        public IdName IdNameService { get; set; }
+
+        public ICity CityService { get; set; }
         public ActionResult Index()
         {
-            return View();
+            long cityId = FrontHelper.GetCityId(this.HttpContext);
+            var cities = CityService.GetAll();
+            var types = IdNameService.GetByTypeName("房屋类别");
+            HomeIndexViewModel homeIndexView = new HomeIndexViewModel();
+            homeIndexView.Cities = cities;
+            homeIndexView.Types = types;
+            return View(homeIndexView);
         }
+
+        public ActionResult SwitchCityId(long cityId)
+        {
+            long? userId = FrontHelper.GetUserId(this.HttpContext);
+            if (userId == null)
+            {
+                FrontHelper.SetCityId(this.HttpContext, cityId);
+            }
+            else
+            {
+                UserService.SetUserCityId(userId.Value, cityId);
+            }
+
+            return Json(new AjaxResult { Status = "ok" });
+        }
+
 
         [HttpGet]
         public ActionResult Login()

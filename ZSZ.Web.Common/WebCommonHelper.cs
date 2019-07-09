@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +13,20 @@ namespace ZSZ.Web.Common
         //Chapcha
         public static string CreateVerifyCode(int len)
         {
-            char[] data = { 'a','c','d','e','f','h','k','m',
-                'n','r','s','t','w','x','y'};
+            char[] data =
+            {
+                'a', 'c', 'd', 'e', 'f', 'h', 'k', 'm',
+                'n', 'r', 's', 't', 'w', 'x', 'y'
+            };
             StringBuilder sb = new StringBuilder();
             Random rand = new Random();
             for (int i = 0; i < len; i++)
             {
-                int index = rand.Next(data.Length);//[0,data.length)
+                int index = rand.Next(data.Length); //[0,data.length)
                 char ch = data[index];
                 sb.Append(ch);
             }
+
             //勤测！
             return sb.ToString();
         }
@@ -35,13 +40,66 @@ namespace ZSZ.Web.Common
                 {
                     continue;
                 }
+
                 sb.Append("属性【").Append(key).Append("】错误：");
                 foreach (var modelError in modelState[key].Errors)
                 {
                     sb.AppendLine(modelError.ErrorMessage);
                 }
             }
+
             return sb.ToString();
+        }
+
+        public static string ToQueryString(NameValueCollection nvc)
+        {
+            if (nvc == null)
+            {
+                throw new ArgumentNullException("nvc");
+            }
+            StringBuilder sb = new StringBuilder();
+            foreach (string key in nvc.AllKeys)
+            {
+                sb.Append(key).Append("=").Append(Uri.EscapeDataString(nvc[key])).Append("&");
+            }
+
+            return sb.ToString().TrimEnd('&');
+        }
+
+        public static string UpdateQueryString(NameValueCollection nvc, string key, string value)
+        {
+            if (nvc == null)
+            {
+                throw new ArgumentNullException("nvc");
+            }
+            NameValueCollection newNvc = new NameValueCollection(nvc);
+            //如果原先的nvc包含了该key，则更新
+            if (newNvc.AllKeys.Contains(key))
+            {
+                newNvc[key] = value;
+            }
+            else
+            {
+                newNvc.Add(key, value);
+            }
+
+            return ToQueryString(newNvc);
+        }
+
+        public static string RemoveQueryString(NameValueCollection nvc, string key)
+        {
+            if (nvc == null)
+            {
+                throw new ArgumentNullException("nvc");
+            }
+            NameValueCollection newNvc = new NameValueCollection(nvc);
+            //如果原先的nvc包含了该key，则更新
+            if (newNvc.AllKeys.Contains(key))
+            {
+                newNvc.Remove(key);
+            }
+
+            return ToQueryString(newNvc);
         }
     }
 }

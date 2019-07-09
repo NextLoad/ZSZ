@@ -192,6 +192,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="ModelBinders\TrimToDBCModelBinder.cs" />
+    <Compile Include="Models\HomeIndexViewModel.cs" />
+    <Compile Include="Models\HouseIndexViewModel.cs" />
+    <Compile Include="Models\HouseSearchOptionModel.cs" />
+    <Compile Include="Models\HouseSearchViewModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RegisterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -217,6 +221,7 @@
     <Content Include="Views\User\ForgetPassword4.cshtml" />
     <Content Include="Views\House\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\House\Search.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

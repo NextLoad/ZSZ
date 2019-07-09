@@ -82,11 +82,24 @@
         <div class="formControls col-3">
             @Html.DropDownList("typeId", new SelectList(Model.Types, nameof(IdNameDTO.Id), nameof(IdNameDTO.Name)))
         </div>
+    </div>
+    <div class="row c1">
         <label class="form-label col-1">房源描述：</label>
-        <div class="formControls col-8">
-            <textarea name="description"></textarea>
+        <div class="formControls col-11">
+            @*<textarea name="description"></textarea>*@
+            <!-- 加载编辑器的容器 -->
+            <script id="container" name="description" type="text/plain">
+                
+            </script>
+            <!-- 配置文件 -->
+            <script type="text/javascript" src="~/lib/ueditor/1.4.3/ueditor.config.js"></script>
+            <!-- 编辑器源码文件 -->
+            <script type="text/javascript" src="~/lib/ueditor/1.4.3/ueditor.all.js"></script>
+            <!-- 实例化编辑器 -->
+            <script type="text/javascript">
+                var ue = UE.getEditor('container');
+            </script>
         </div>
-
     </div>
     <div class="row cl">
         <input type="button" value="添加" id="btnAddHouse" />
@@ -94,6 +107,7 @@
 </form>
 @section FooterScript
 {
+
     <script type="text/javascript">
         $(function() {
             var formValid = $("#formAdd").Validform({ tiptype: 2 });

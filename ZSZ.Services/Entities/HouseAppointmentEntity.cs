@@ -21,7 +21,7 @@ namespace ZSZ.Services.Entities
         public string Status { get; set; }
         public long? FollowAdminUserId { get; set; }
         public virtual AdminUserEntity AdminUserEntity { get; set; }
-        public DateTime FollowDateTime { get; set; }
+        public DateTime? FollowDateTime { get; set; }
 
     }
 }
