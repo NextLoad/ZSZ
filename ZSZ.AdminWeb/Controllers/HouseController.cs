@@ -20,6 +20,8 @@ namespace ZSZ.AdminWeb.Controllers
 
         public IHousePic HousePicService { get; set; }
 
+        public IAttachment AttachmentService { get; set; }
+
         public IdName IdNameService { get; set; }
 
         public IRegion RegionService { get; set; }
@@ -90,7 +92,8 @@ namespace ZSZ.AdminWeb.Controllers
             house.StatusId = houseAdd.StatusId;
             house.TotalFloatCount = houseAdd.TotalFloatCount;
             house.TypeId = houseAdd.TypeId;
-            HouseService.AddNewHouse(house);
+            long houseId = HouseService.AddNewHouse(house);
+            CreateStaticPage(houseId);
             return Json(new AjaxResult { Status = "ok" });
         }
 
@@ -148,6 +151,7 @@ namespace ZSZ.AdminWeb.Controllers
             house.TotalFloatCount = houseEdit.TotalFloatCount;
             house.TypeId = houseEdit.TypeId;
             HouseService.UpdateHouse(house);
+            CreateStaticPage(house.Id);
             return Json(new AjaxResult { Status = "ok" });
         }
 
@@ -242,6 +246,44 @@ namespace ZSZ.AdminWeb.Controllers
             }
 
             return Json(new AjaxResult { Status = "ok" });
+        }
+
+        private void CreateStaticPage(long houseId)
+        {
+            HouseIndexViewModel houseIndexView = null;
+
+            HouseDTO house = HouseService.GetById(houseId);
+            if (house == null)
+            {
+                return;
+            }
+
+            var housePics = HousePicService.GetPics(houseId);
+            var attachments = AttachmentService.GetAttachment(houseId);
+            houseIndexView = new HouseIndexViewModel
+            {
+                House = house,
+                HousePics = housePics,
+                Attachments = attachments
+            };
+            this.ControllerContext.Controller.ViewData.Model = houseIndexView;
+            string html = WebCommonHelper.RendViewToString(
+                this.ControllerContext,
+                "~/views/House/StaticIndex.cshtml",
+                "");
+            System.IO.File.AppendAllText(String.Format(@"D:\PersonalWorkSpace\github\ZSZ\ZSZ.FrontWeb\{0}.html", houseId), html);
+
+        }
+
+        public ActionResult RebuildAllStaticPage()
+        {
+            HouseDTO[] houses = HouseService.GetAll();
+            foreach (var house in houses)
+            {
+                CreateStaticPage(house.Id);
+            }
+
+            return Content("ok");
         }
 
     }

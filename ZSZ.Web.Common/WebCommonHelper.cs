@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,6 +101,26 @@ namespace ZSZ.Web.Common
             }
 
             return ToQueryString(newNvc);
+        }
+
+        public static string RendViewToString(ControllerContext context, string viewName, string masterName)
+        {
+            //找到对应控制器下的视图
+            ViewEngineResult viewEngineResult = ViewEngines.Engines.FindView(context, viewName, masterName);
+            if (viewEngineResult == null)
+            {
+                throw new Exception("找不到视图" + viewName);
+            }
+            IView view = viewEngineResult.View;
+            using (StringWriter sw = new StringWriter())
+            {
+                ViewContext viewContext = new ViewContext(context, view, context.Controller.ViewData, context.Controller.TempData, sw);
+                //会将layout页面的其他信息也写入。
+                view.Render(viewContext, sw);
+                return sw.ToString();
+            }
+
+
         }
     }
 }
